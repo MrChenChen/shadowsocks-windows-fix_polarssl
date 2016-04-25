@@ -70,6 +70,8 @@ namespace Shadowsocks.Controller
         {
             if (form != null)
             {
+                if (_config.ads == null) _config.ads = new List<string>();
+
                 _config.autohide = form.checkBoxAutoHide.Checked;
                 _config.autorun = form.checkBoxAutoRun.Checked;
                 _config.ads.Clear();

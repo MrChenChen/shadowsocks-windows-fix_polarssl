@@ -60,13 +60,16 @@ namespace Shadowsocks.View
             GetPassWord._buttonHK = buttonHK;
             GetPassWord._buttonJP = buttonJP;
 
-
-            foreach (var item in _modifiedConfiguration.ads)
+            if (_modifiedConfiguration.ads != null)
             {
-                listBoxADs.Items.Add(item);
+                foreach (var item in _modifiedConfiguration.ads)
+                {
+                    listBoxADs.Items.Add(item);
+                }
+                checkBoxAutoRun.Checked = _modifiedConfiguration.autorun;
+                checkBoxAutoHide.Checked = _modifiedConfiguration.autohide;
             }
-            checkBoxAutoRun.Checked = _modifiedConfiguration.autorun;
-            checkBoxAutoHide.Checked = _modifiedConfiguration.autohide;
+
 
         }
 
