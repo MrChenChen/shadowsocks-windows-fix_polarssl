@@ -106,9 +106,9 @@
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.EncryptionSelect, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 20);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(8);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(8);
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -123,7 +123,7 @@
             // 
             this.RemarksTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.RemarksTextBox.Location = new System.Drawing.Point(154, 190);
-            this.RemarksTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RemarksTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.RemarksTextBox.Name = "RemarksTextBox";
             this.RemarksTextBox.ReadOnly = true;
             this.RemarksTextBox.Size = new System.Drawing.Size(238, 28);
@@ -167,7 +167,7 @@
             // 
             this.ProxyPortTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ProxyPortTextBox.Location = new System.Drawing.Point(154, 154);
-            this.ProxyPortTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ProxyPortTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ProxyPortTextBox.Name = "ProxyPortTextBox";
             this.ProxyPortTextBox.ReadOnly = true;
             this.ProxyPortTextBox.Size = new System.Drawing.Size(238, 28);
@@ -201,7 +201,7 @@
             // 
             this.IPTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.IPTextBox.Location = new System.Drawing.Point(154, 12);
-            this.IPTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.IPTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.IPTextBox.Name = "IPTextBox";
             this.IPTextBox.ReadOnly = true;
             this.IPTextBox.Size = new System.Drawing.Size(238, 28);
@@ -212,7 +212,7 @@
             // 
             this.ServerPortTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ServerPortTextBox.Location = new System.Drawing.Point(154, 48);
-            this.ServerPortTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ServerPortTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ServerPortTextBox.Name = "ServerPortTextBox";
             this.ServerPortTextBox.ReadOnly = true;
             this.ServerPortTextBox.Size = new System.Drawing.Size(238, 28);
@@ -223,7 +223,7 @@
             // 
             this.PasswordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.PasswordTextBox.Location = new System.Drawing.Point(154, 84);
-            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.ReadOnly = true;
             this.PasswordTextBox.Size = new System.Drawing.Size(238, 28);
@@ -259,7 +259,7 @@
             "bf-cfb",
             "rc4"});
             this.EncryptionSelect.Location = new System.Drawing.Point(154, 120);
-            this.EncryptionSelect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.EncryptionSelect.Margin = new System.Windows.Forms.Padding(4);
             this.EncryptionSelect.Name = "EncryptionSelect";
             this.EncryptionSelect.Size = new System.Drawing.Size(238, 26);
             this.EncryptionSelect.TabIndex = 3;
@@ -277,7 +277,7 @@
             this.panel2.AutoSize = true;
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel2.Location = new System.Drawing.Point(267, 262);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(0, 0);
             this.panel2.TabIndex = 1;
@@ -287,7 +287,7 @@
             this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKButton.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.OKButton.Location = new System.Drawing.Point(519, 342);
-            this.OKButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OKButton.Margin = new System.Windows.Forms.Padding(4);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(112, 44);
             this.OKButton.TabIndex = 8;
@@ -434,7 +434,7 @@
             // DeleteButton
             // 
             this.DeleteButton.Location = new System.Drawing.Point(124, 62);
-            this.DeleteButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DeleteButton.Margin = new System.Windows.Forms.Padding(4);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(98, 34);
             this.DeleteButton.TabIndex = 7;
@@ -446,7 +446,7 @@
             // AddButton
             // 
             this.AddButton.Location = new System.Drawing.Point(18, 62);
-            this.AddButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AddButton.Margin = new System.Windows.Forms.Padding(4);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(98, 34);
             this.AddButton.TabIndex = 6;
@@ -461,9 +461,9 @@
             this.ServerGroupBox.Controls.Add(this.checkBoxAutoRun);
             this.ServerGroupBox.Controls.Add(this.tableLayoutPanel1);
             this.ServerGroupBox.Location = new System.Drawing.Point(339, 18);
-            this.ServerGroupBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ServerGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ServerGroupBox.Name = "ServerGroupBox";
-            this.ServerGroupBox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ServerGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.ServerGroupBox.Size = new System.Drawing.Size(423, 308);
             this.ServerGroupBox.TabIndex = 6;
             this.ServerGroupBox.TabStop = false;
@@ -473,7 +473,7 @@
             // 
             this.checkBoxAutoHide.AutoSize = true;
             this.checkBoxAutoHide.Location = new System.Drawing.Point(200, 276);
-            this.checkBoxAutoHide.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxAutoHide.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAutoHide.Name = "checkBoxAutoHide";
             this.checkBoxAutoHide.Size = new System.Drawing.Size(106, 22);
             this.checkBoxAutoHide.TabIndex = 13;
@@ -498,7 +498,7 @@
             this.checkBoxKillNew.Checked = true;
             this.checkBoxKillNew.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxKillNew.Location = new System.Drawing.Point(20, 297);
-            this.checkBoxKillNew.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxKillNew.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxKillNew.Name = "checkBoxKillNew";
             this.checkBoxKillNew.Size = new System.Drawing.Size(106, 22);
             this.checkBoxKillNew.TabIndex = 13;
@@ -510,7 +510,7 @@
             // 
             this.checkBoxEnable.AutoSize = true;
             this.checkBoxEnable.Location = new System.Drawing.Point(424, 342);
-            this.checkBoxEnable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxEnable.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxEnable.Name = "checkBoxEnable";
             this.checkBoxEnable.Size = new System.Drawing.Size(70, 22);
             this.checkBoxEnable.TabIndex = 11;
@@ -524,7 +524,7 @@
             this.ServersListBox.FormattingEnabled = true;
             this.ServersListBox.ItemHeight = 18;
             this.ServersListBox.Location = new System.Drawing.Point(18, 28);
-            this.ServersListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ServersListBox.Margin = new System.Windows.Forms.Padding(4);
             this.ServersListBox.Name = "ServersListBox";
             this.ServersListBox.Size = new System.Drawing.Size(310, 22);
             this.ServersListBox.TabIndex = 5;
@@ -535,7 +535,7 @@
             // 
             this.button1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.Location = new System.Drawing.Point(648, 342);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 44);
             this.button1.TabIndex = 10;
@@ -578,12 +578,12 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 700;
+            this.timer1.Interval = 500;
             // 
             // buttonDel
             // 
             this.buttonDel.Location = new System.Drawing.Point(234, 291);
-            this.buttonDel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(98, 34);
             this.buttonDel.TabIndex = 7;
@@ -594,7 +594,7 @@
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(128, 291);
-            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(98, 34);
             this.buttonAdd.TabIndex = 6;
@@ -609,7 +609,7 @@
             this.listBoxADs.FormattingEnabled = true;
             this.listBoxADs.ItemHeight = 18;
             this.listBoxADs.Location = new System.Drawing.Point(16, 28);
-            this.listBoxADs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBoxADs.Margin = new System.Windows.Forms.Padding(4);
             this.listBoxADs.Name = "listBoxADs";
             this.listBoxADs.Size = new System.Drawing.Size(311, 254);
             this.listBoxADs.TabIndex = 14;
@@ -639,7 +639,7 @@
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfigForm";

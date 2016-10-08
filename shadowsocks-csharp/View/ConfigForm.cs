@@ -663,38 +663,41 @@ namespace Shadowsocks.View
             int s = DateTime.Now.Second;    //获取当前时间的秒部分
 
 
-            if (m == 0 && s == 0)
+            if (s == 0 && m == 1)
             {
                 if (h == 0 || h == 6 || h == 12 || h == 18)
                 {
                     new Thread(new ParameterizedThreadStart((obj) =>
                     {
-                        GetPassWorsFunc();
 
                         Task.Factory.StartNew(() =>
                         {
-                            Thread.Sleep(2000);
+                            GetPassWorsFunc();
 
-                            if (buttonUS.Enabled)
+                            Invoke(new Action(() =>
                             {
-                                buttonUS_Click(null, null);
+                                if (buttonUS.Enabled)
+                                {
+                                    buttonUS_Click(null, null);
 
-                                return;
-                            }
+                                    return;
+                                }
 
-                            if (buttonHK.Enabled)
-                            {
-                                buttonHK_Click(null, null);
+                                if (buttonHK.Enabled)
+                                {
+                                    buttonHK_Click(null, null);
 
-                                return;
-                            }
+                                    return;
+                                }
 
-                            if (buttonJP.Enabled)
-                            {
-                                buttonJP_Click(null, null);
+                                if (buttonJP.Enabled)
+                                {
+                                    buttonJP_Click(null, null);
 
-                                return;
-                            }
+                                    return;
+                                }
+
+                            }));
                         });
 
                     }))
