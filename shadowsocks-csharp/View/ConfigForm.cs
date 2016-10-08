@@ -304,6 +304,24 @@ namespace Shadowsocks.View
         );
 
 
+        private const int WM_QUERYENDSESSION = 0x11;
+
+        protected override void DefWndProc(ref System.Windows.Forms.Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_QUERYENDSESSION:
+                    //string message = string.Format("收到自己消息的参数:{0},{1}", m.WParam, m.LParam);
+                    //处理启动 函数MessageBox.Show(message);//显示一个消息框
+                    Close();
+                    Environment.Exit(0);
+                    break;
+                default:
+                    base.DefWndProc(ref m);//一定要调用基类函数，以便系统处理其它消息。
+                    break;
+            }
+        }
+
         void KillTecNews()
         {
             IntPtr temp = IntPtr.Zero;
@@ -400,7 +418,8 @@ namespace Shadowsocks.View
 
         private void Quit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+            Environment.Exit(0);
         }
 
         private void ShowFirstTimeBalloon()
@@ -596,14 +615,15 @@ namespace Shadowsocks.View
         private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             controller.SaveServers(_modifiedConfiguration.configs, this);
-            e.Cancel = false;
+            e.Cancel = true;
+
+            Hide();
         }
 
 
 
         private void buttonUS_Click(object sender, EventArgs e)
         {
-
 
             GetPassWord.GetPassWordFromNet(0);
 
