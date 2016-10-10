@@ -36,6 +36,8 @@ namespace Shadowsocks
 
         public static ContextMenu contextmenu1;
 
+        public static Action mAction = null;
+
         public static Button _buttonUS;
         public static Button _buttonHK;
         public static Button _buttonJP;
@@ -134,9 +136,6 @@ namespace Shadowsocks
                 _buttonJP.Enabled = true;
             }
 
-
-
-
             contextmenu1.MenuItems[0].Checked = false;
             contextmenu1.MenuItems[1].Checked = false;
             contextmenu1.MenuItems[2].Checked = false;
@@ -181,7 +180,11 @@ namespace Shadowsocks
                     break;
             }
 
-            finished = true;
+            if (index == -1)
+            {
+                mAction();
+            }
+
 
             //m_mainform.OKButton_Click(null, null);
         }
@@ -207,6 +210,5 @@ namespace Shadowsocks
 
         public static Model.Server[] myserverlist = new Model.Server[3];
 
-        public static bool finished = false;
     }
 }

@@ -509,7 +509,7 @@
             // checkBoxEnable
             // 
             this.checkBoxEnable.AutoSize = true;
-            this.checkBoxEnable.Location = new System.Drawing.Point(424, 342);
+            this.checkBoxEnable.Location = new System.Drawing.Point(424, 344);
             this.checkBoxEnable.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxEnable.Name = "checkBoxEnable";
             this.checkBoxEnable.Size = new System.Drawing.Size(70, 22);
@@ -585,7 +585,7 @@
             this.buttonDel.Location = new System.Drawing.Point(234, 291);
             this.buttonDel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDel.Name = "buttonDel";
-            this.buttonDel.Size = new System.Drawing.Size(98, 34);
+            this.buttonDel.Size = new System.Drawing.Size(94, 34);
             this.buttonDel.TabIndex = 7;
             this.buttonDel.Text = "删除";
             this.buttonDel.UseVisualStyleBackColor = true;

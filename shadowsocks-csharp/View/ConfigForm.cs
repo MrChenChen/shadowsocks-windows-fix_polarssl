@@ -277,7 +277,7 @@ namespace Shadowsocks.View
                 _isFirstRun = true;
             }
             //updateChecker.CheckUpdate();
-            GetPassWorsFunc();
+            GetPassWorsFunc(null);
 
             //timer1.Start();
 
@@ -456,8 +456,6 @@ namespace Shadowsocks.View
                 Hide();
             }
 
-
-            GetPassWord.finished = false;
             //ShowFirstTimeBalloon();
         }
 
@@ -527,7 +525,7 @@ namespace Shadowsocks.View
 
 
 
-        void GetPassWorsFunc()
+        void GetPassWorsFunc(Action action)
         {
             for (int i = 0; i < ServersListBox.Items.Count; i++)
             {
@@ -537,55 +535,62 @@ namespace Shadowsocks.View
 
             AddButton_Click(null, null);
 
+            Action GetPassWord_Completed = () =>
+            {
+
+
+
+                Task.Factory.StartNew(() =>
+                {
+
+                    if (GetPassWord.myserverlist[0].password.Length >= 6)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            AutoSetPassword(GetPassWord.myserverlist[0]);
+                            contextMenu1.MenuItems[0].Checked = true;
+                            contextMenu1.MenuItems[1].Checked = false;
+                            contextMenu1.MenuItems[2].Checked = false;
+                        }));
+                        return;
+                    }
+
+                    if (GetPassWord.myserverlist[1].password.Length >= 6)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            AutoSetPassword(GetPassWord.myserverlist[1]);
+                            contextMenu1.MenuItems[0].Checked = false;
+                            contextMenu1.MenuItems[1].Checked = true;
+                            contextMenu1.MenuItems[2].Checked = false;
+                        }));
+                        return;
+                    }
+
+                    if (GetPassWord.myserverlist[2].password.Length >= 6)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            AutoSetPassword(GetPassWord.myserverlist[2]);
+                            contextMenu1.MenuItems[0].Checked = false;
+                            contextMenu1.MenuItems[1].Checked = false;
+                            contextMenu1.MenuItems[2].Checked = true;
+                        }));
+                        return;
+                    }
+
+
+
+
+                });
+
+
+            };
+
+            GetPassWord.mAction = GetPassWord_Completed;
             GetPassWord.GetPassWordFromNet(-1);
 
-            Task.Factory.StartNew(() =>
-            {
-                while (!GetPassWord.finished)
-                {
-                    System.Threading.Thread.Sleep(100);
-                }
-
-                if (GetPassWord.myserverlist[0].password.Length >= 6)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        AutoSetPassword(GetPassWord.myserverlist[0]);
-                        contextMenu1.MenuItems[0].Checked = true;
-                        contextMenu1.MenuItems[1].Checked = false;
-                        contextMenu1.MenuItems[2].Checked = false;
-                    }));
-                    return;
-                }
-
-                if (GetPassWord.myserverlist[1].password.Length >= 6)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        AutoSetPassword(GetPassWord.myserverlist[1]);
-                        contextMenu1.MenuItems[0].Checked = false;
-                        contextMenu1.MenuItems[1].Checked = true;
-                        contextMenu1.MenuItems[2].Checked = false;
-                    }));
-                    return;
-                }
-
-                if (GetPassWord.myserverlist[2].password.Length >= 6)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        AutoSetPassword(GetPassWord.myserverlist[2]);
-                        contextMenu1.MenuItems[0].Checked = false;
-                        contextMenu1.MenuItems[1].Checked = false;
-                        contextMenu1.MenuItems[2].Checked = true;
-                    }));
-                    return;
-                }
-
-
-
-
-            });
+            action?.Invoke();
 
         }
 
@@ -624,9 +629,7 @@ namespace Shadowsocks.View
 
         private void buttonUS_Click(object sender, EventArgs e)
         {
-
             GetPassWord.GetPassWordFromNet(0);
-
         }
 
         private void buttonHK_Click(object sender, EventArgs e)
@@ -670,35 +673,37 @@ namespace Shadowsocks.View
                     new Thread(new ParameterizedThreadStart((obj) =>
                     {
 
-                        Task.Factory.StartNew(() =>
+                        Action action = () =>
                         {
-                            GetPassWorsFunc();
 
                             Invoke(new Action(() =>
-                            {
-                                if (buttonUS.Enabled)
-                                {
-                                    buttonUS_Click(null, null);
+                                                    {
+                                                        if (buttonUS.Enabled)
+                                                        {
+                                                            buttonUS_Click(null, null);
 
-                                    return;
-                                }
+                                                            return;
+                                                        }
 
-                                if (buttonHK.Enabled)
-                                {
-                                    buttonHK_Click(null, null);
+                                                        if (buttonHK.Enabled)
+                                                        {
+                                                            buttonHK_Click(null, null);
 
-                                    return;
-                                }
+                                                            return;
+                                                        }
 
-                                if (buttonJP.Enabled)
-                                {
-                                    buttonJP_Click(null, null);
+                                                        if (buttonJP.Enabled)
+                                                        {
+                                                            buttonJP_Click(null, null);
 
-                                    return;
-                                }
+                                                            return;
+                                                        }
 
-                            }));
-                        });
+                                                    }));
+
+                        };
+
+                        GetPassWorsFunc(action);
 
                     }))
                     { IsBackground = true }.Start();
