@@ -74,6 +74,7 @@ namespace Shadowsocks.Controller
 
                 _config.autohide = form.checkBoxAutoHide.Checked;
                 _config.autorun = form.checkBoxAutoRun.Checked;
+                _config.autoupdate = form.tempAutoCheckUpdate;
                 _config.ads.Clear();
                 foreach (string item in form.listBoxADs.Items)
                 {

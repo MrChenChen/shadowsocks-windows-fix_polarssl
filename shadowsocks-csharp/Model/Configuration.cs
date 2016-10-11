@@ -19,6 +19,7 @@ namespace Shadowsocks.Model
         public bool isDefault;
         public bool autohide;
         public bool autorun;
+        public bool autoupdate;
 
         public List<string> ads;
 

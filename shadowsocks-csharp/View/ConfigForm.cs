@@ -20,6 +20,9 @@ namespace Shadowsocks.View
 
     public partial class ConfigForm : Form
     {
+        const string Version = "1.0";
+
+
         private ShadowsocksController controller;
         private UpdateChecker updateChecker;
 
@@ -39,9 +42,6 @@ namespace Shadowsocks.View
 
             m_settings = Properties.Settings.Default;
 
-
-
-
             notifyIcon1.ContextMenu = contextMenu1;
 
             this.controller = controller;
@@ -50,7 +50,7 @@ namespace Shadowsocks.View
             controller.PACFileReadyToOpen += controller_PACFileReadyToOpen;
             controller.ShareOverLANStatusChanged += controller_ShareOverLANStatusChanged;
 
-            //this.updateChecker = new UpdateChecker();
+            this.updateChecker = new UpdateChecker();
             //updateChecker.NewVersionFound += updateChecker_NewVersionFound;
 
             LoadCurrentConfiguration();
@@ -68,8 +68,13 @@ namespace Shadowsocks.View
                 }
                 checkBoxAutoRun.Checked = _modifiedConfiguration.autorun;
                 checkBoxAutoHide.Checked = _modifiedConfiguration.autohide;
+                menuItemAutoCheckUpdate.Checked = _modifiedConfiguration.autoupdate;
+                tempAutoCheckUpdate = menuItemAutoCheckUpdate.Checked;
             }
 
+
+            if (tempAutoCheckUpdate)
+                CheckUpdate();
 
         }
 
@@ -257,10 +262,7 @@ namespace Shadowsocks.View
         {
             Startuplnkname = Shadowsocks._3rd.CreateDesktopShort.StartupPath + "\\" + System.IO.Path.GetFileName(Application.ExecutablePath).Replace(".exe", ".lnk").Replace(".EXE", ".lnk");
 
-
             checkBoxAutoRun.Checked = File.Exists(Startuplnkname);
-
-
 
             GetPassWord.m_mainform = this;
             CheckForIllegalCrossThreadCalls = false;
@@ -314,6 +316,7 @@ namespace Shadowsocks.View
                     //string message = string.Format("收到自己消息的参数:{0},{1}", m.WParam, m.LParam);
                     //处理启动 函数MessageBox.Show(message);//显示一个消息框
                     Close();
+                    notifyIcon1.Dispose();
                     Environment.Exit(0);
                     break;
                 default:
@@ -419,6 +422,7 @@ namespace Shadowsocks.View
         private void Quit_Click(object sender, EventArgs e)
         {
             Close();
+            notifyIcon1.Dispose();
             Environment.Exit(0);
         }
 
@@ -670,6 +674,8 @@ namespace Shadowsocks.View
             {
                 if (h == 0 || h == 6 || h == 12 || h == 18)
                 {
+
+                    //定时 自动切换
                     new Thread(new ParameterizedThreadStart((obj) =>
                     {
 
@@ -710,6 +716,7 @@ namespace Shadowsocks.View
 
 
                 }
+
             }
 
 
@@ -752,25 +759,6 @@ namespace Shadowsocks.View
             }
         }
 
-        private void checkBoxAutoRun_Click(object sender, EventArgs e)
-        {
-            if (checkBoxAutoRun.Checked)
-            {
-                //to auto run
-                Shadowsocks._3rd.CreateDesktopShort.CreateDesktopLnk(Startuplnkname, Application.ExecutablePath, "", "", System.Environment.CurrentDirectory, Application.ExecutablePath + ",0");
-            }
-            else
-            {
-                //delete auto run
-                if (File.Exists(Startuplnkname))
-                {
-                    File.Delete(Startuplnkname);
-                }
-            }
-
-        }
-
-
         //添加广告
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -807,15 +795,49 @@ namespace Shadowsocks.View
             }
         }
 
-        private void checkBoxKillNew_CheckedChanged(object sender, EventArgs e)
+
+        void CheckUpdate()
         {
+            Task.Factory.StartNew(() =>
+            {
+
+
+
+
+            });
+        }
+
+        /// <summary>
+        /// 手动更新
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItemStartCheckUpdate_Click(object sender, EventArgs e)
+        {
+            CheckUpdate();
+        }
+
+        public bool tempAutoCheckUpdate = true;
+
+        private void menuItemAutoCheckUpdate_Click(object sender, EventArgs e)
+        {
+            menuItemAutoCheckUpdate.Checked = !menuItemAutoCheckUpdate.Checked;
+
+            tempAutoCheckUpdate = menuItemAutoCheckUpdate.Checked;
+
+            controller.SaveServers(_modifiedConfiguration.configs, this);
+        }
+
+        private void menuItem7_Click(object sender, EventArgs e)
+        {
+            string path = System.Windows.Forms.Application.ExecutablePath;
+
+            FileInfo file = new FileInfo(path);
+
+            System.Diagnostics.Process.Start("explorer.exe", file.DirectoryName);
 
         }
 
-        private void checkBoxAutoHide_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 
 }

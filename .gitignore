@@ -5,3 +5,5 @@ shadowsocks-csharp/shadowsocks-csharp.csproj.user
 TestResults
 *.suo
 
+/shadowsocks-csharp/Resources/Thumbs.db
+/shadowsocks-csharp/Thumbs.db
