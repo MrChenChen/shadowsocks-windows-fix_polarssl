@@ -58,6 +58,7 @@
             this.SeperatorItem = new System.Windows.Forms.MenuItem();
             this.ConfigItem = new System.Windows.Forms.MenuItem();
             this.menuItem6 = new System.Windows.Forms.MenuItem();
+            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.editPACFileItem = new System.Windows.Forms.MenuItem();
@@ -85,7 +86,6 @@
             this.buttonDel = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.listBoxADs = new System.Windows.Forms.ListBox();
-            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -377,6 +377,12 @@
             this.menuItem6.Index = 7;
             this.menuItem6.Text = "-";
             // 
+            // menuItem7
+            // 
+            this.menuItem7.Index = 8;
+            this.menuItem7.Text = "打开工作目录";
+            this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
+            // 
             // menuItem1
             // 
             this.menuItem1.Index = 9;
@@ -615,12 +621,6 @@
             this.listBoxADs.Name = "listBoxADs";
             this.listBoxADs.Size = new System.Drawing.Size(208, 170);
             this.listBoxADs.TabIndex = 14;
-            // 
-            // menuItem7
-            // 
-            this.menuItem7.Index = 8;
-            this.menuItem7.Text = "打开工作目录";
-            this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
             // 
             // ConfigForm
             // 

@@ -13,20 +13,19 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.IO;
-
+using System.Net;
 
 namespace Shadowsocks.View
 {
 
     public partial class ConfigForm : Form
     {
-        const string Version = "1.0";
-
 
         private ShadowsocksController controller;
-        private UpdateChecker updateChecker;
 
         private List<string> m_list_ads = new List<string>();
+
+        private VersionChecker mUpdater = new VersionChecker();
 
         // this is a copy of configuration that we are working on
         private Configuration _modifiedConfiguration;
@@ -38,6 +37,7 @@ namespace Shadowsocks.View
         public ConfigForm(ShadowsocksController controller)
         {
             InitializeComponent();
+
             LoadTrayIcon();
 
             m_settings = Properties.Settings.Default;
@@ -50,8 +50,6 @@ namespace Shadowsocks.View
             controller.PACFileReadyToOpen += controller_PACFileReadyToOpen;
             controller.ShareOverLANStatusChanged += controller_ShareOverLANStatusChanged;
 
-            this.updateChecker = new UpdateChecker();
-            //updateChecker.NewVersionFound += updateChecker_NewVersionFound;
 
             LoadCurrentConfiguration();
 
@@ -73,8 +71,12 @@ namespace Shadowsocks.View
             }
 
 
-            if (tempAutoCheckUpdate)
-                CheckUpdate();
+            //if (tempAutoCheckUpdate)
+            //CheckUpdate();
+
+            //mUpdater.VersionCheck();
+
+ 
 
         }
 
@@ -127,20 +129,6 @@ namespace Shadowsocks.View
             System.Diagnostics.Process.Start("explorer.exe", argument);
         }
 
-        void updateChecker_NewVersionFound(object sender, EventArgs e)
-        {
-            notifyIcon1.BalloonTipTitle = "Shadowsocks " + updateChecker.LatestVersionNumber + " Update Found";
-            notifyIcon1.BalloonTipText = "Click here to download";
-            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-            notifyIcon1.BalloonTipClicked += notifyIcon1_BalloonTipClicked;
-            notifyIcon1.ShowBalloonTip(5000);
-            _isFirstRun = false;
-        }
-
-        void notifyIcon1_BalloonTipClicked(object sender, EventArgs e)
-        {
-            Process.Start(updateChecker.LatestVersionURL);
-        }
 
 
         private void ShowWindow()
@@ -258,6 +246,7 @@ namespace Shadowsocks.View
             }
         }
         string Startuplnkname;
+
         private void ConfigForm_Load(object sender, EventArgs e)
         {
             Startuplnkname = Shadowsocks._3rd.CreateDesktopShort.StartupPath + "\\" + System.IO.Path.GetFileName(Application.ExecutablePath).Replace(".exe", ".lnk").Replace(".EXE", ".lnk");
@@ -265,7 +254,9 @@ namespace Shadowsocks.View
             checkBoxAutoRun.Checked = File.Exists(Startuplnkname);
 
             GetPassWord.m_mainform = this;
+
             CheckForIllegalCrossThreadCalls = false;
+
             if (!controller.GetConfiguration().isDefault)
             {
                 //this.Opacity = 0;
@@ -796,16 +787,7 @@ namespace Shadowsocks.View
         }
 
 
-        void CheckUpdate()
-        {
-            Task.Factory.StartNew(() =>
-            {
 
-
-
-
-            });
-        }
 
         /// <summary>
         /// 手动更新
@@ -814,7 +796,7 @@ namespace Shadowsocks.View
         /// <param name="e"></param>
         private void menuItemStartCheckUpdate_Click(object sender, EventArgs e)
         {
-            CheckUpdate();
+            //CheckUpdate();
         }
 
         public bool tempAutoCheckUpdate = true;
@@ -834,7 +816,7 @@ namespace Shadowsocks.View
 
             FileInfo file = new FileInfo(path);
 
-            System.Diagnostics.Process.Start("explorer.exe", file.DirectoryName);
+            Process.Start("explorer.exe", file.DirectoryName);
 
         }
 
