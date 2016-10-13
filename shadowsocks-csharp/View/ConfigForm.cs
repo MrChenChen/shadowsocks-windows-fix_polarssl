@@ -74,9 +74,9 @@ namespace Shadowsocks.View
             //if (tempAutoCheckUpdate)
             //CheckUpdate();
 
-            //mUpdater.VersionCheck();
 
- 
+
+
 
         }
 
@@ -296,6 +296,7 @@ namespace Shadowsocks.View
             int lParam
         );
 
+        public const int BM_CLICK = 0xF5;
 
         private const int WM_QUERYENDSESSION = 0x11;
 
@@ -308,6 +309,7 @@ namespace Shadowsocks.View
                     //处理启动 函数MessageBox.Show(message);//显示一个消息框
                     Close();
                     notifyIcon1.Dispose();
+                    SystemProxy.Disable();
                     Environment.Exit(0);
                     break;
                 default:
@@ -414,6 +416,7 @@ namespace Shadowsocks.View
         {
             Close();
             notifyIcon1.Dispose();
+            SystemProxy.Disable();
             Environment.Exit(0);
         }
 
@@ -459,6 +462,7 @@ namespace Shadowsocks.View
         private void ConfigForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             controller.Stop();
+
         }
 
         private void AboutItem_Click(object sender, EventArgs e)
@@ -615,6 +619,7 @@ namespace Shadowsocks.View
         private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             controller.SaveServers(_modifiedConfiguration.configs, this);
+
             e.Cancel = true;
 
             Hide();
@@ -677,22 +682,25 @@ namespace Shadowsocks.View
                                                     {
                                                         if (buttonUS.Enabled)
                                                         {
-                                                            buttonUS_Click(null, null);
+                                                            //buttonUS_Click(null, null);
+
+                                                            SendMessage(buttonUS.Handle, BM_CLICK, 0, 0);
+
 
                                                             return;
                                                         }
 
                                                         if (buttonHK.Enabled)
                                                         {
-                                                            buttonHK_Click(null, null);
-
+                                                            //buttonHK_Click(null, null);
+                                                            SendMessage(buttonHK.Handle, BM_CLICK, 0, 0);
                                                             return;
                                                         }
 
                                                         if (buttonJP.Enabled)
                                                         {
-                                                            buttonJP_Click(null, null);
-
+                                                            //buttonJP_Click(null, null);
+                                                            SendMessage(buttonJP.Handle, BM_CLICK, 0, 0);
                                                             return;
                                                         }
 
@@ -796,7 +804,7 @@ namespace Shadowsocks.View
         /// <param name="e"></param>
         private void menuItemStartCheckUpdate_Click(object sender, EventArgs e)
         {
-            //CheckUpdate();
+            mUpdater.VersionCheck();
         }
 
         public bool tempAutoCheckUpdate = true;

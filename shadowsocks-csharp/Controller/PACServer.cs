@@ -56,7 +56,7 @@ namespace Shadowsocks.Controller
 
         public void Stop()
         {
-            _listener.Close();
+            _listener?.Close();
             _listener = null;
         }
 

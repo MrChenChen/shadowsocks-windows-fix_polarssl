@@ -52,7 +52,8 @@ namespace Shadowsocks.Controller
                         true);
                 registry.SetValue("ProxyEnable", 0);
                 registry.SetValue("ProxyServer", "");
-                registry.SetValue("AutoConfigURL", "");
+                //registry.SetValue("AutoConfigURL", "");
+                registry.DeleteValue("AutoConfigURL");
                 SystemProxy.NotifyIE();
             }
             catch (Exception)
