@@ -26,7 +26,7 @@ namespace Shadowsocks
 
             http.DownloadStringCompleted += http_DownloadStringCompleted;
 
-            http.DownloadStringAsync(new Uri(@"http://www.ishadowsocks.com/"));
+            http.DownloadStringAsync(new Uri(@"http://www.ishadowsocks.org/"));
 
         }
 

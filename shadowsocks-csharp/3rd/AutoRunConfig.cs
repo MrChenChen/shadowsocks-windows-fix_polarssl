@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IWshRuntimeLibrary;
+using System.Windows.Forms;
 
 namespace Shadowsocks._3rd
 {
-    class CreateDesktopShort
+    class AutoRunConfig
     {
         public static readonly string StartupPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Startup);
 
+#if false
 
         public static void CreateDesktopLnk(string DeskShortPathandName, string TargetPath, string Arguments = "", string Description = "", string WorkingDirectory = "", string IconLocation = "", string HotKey = "", int WindowStyle = 1)
         {
@@ -29,5 +31,39 @@ namespace Shadowsocks._3rd
 
 
         }
+
+#endif
+
+        public static bool GetAutoRunFromRegedit()
+        {
+            RegistryKey reg = Registry.LocalMachine;
+            RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+
+            return run.GetValue("Shadowsocks") != null;
+
+        }
+
+        public static void SetAutoRun(bool b)
+        {
+            if (b)
+            {
+                if (!GetAutoRunFromRegedit())
+                {
+                    RegistryKey reg = Registry.LocalMachine;
+                    RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                    run.SetValue("Shadowsocks", Application.ExecutablePath);
+                }
+            }
+            else
+            {
+                if (GetAutoRunFromRegedit())
+                {
+                    RegistryKey reg = Registry.LocalMachine;
+                    RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                    run.DeleteValue("Shadowsocks");
+                }
+            }
+        }
+
     }
 }

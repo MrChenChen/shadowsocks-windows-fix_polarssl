@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Net;
+using Shadowsocks._3rd;
 
 namespace Shadowsocks.View
 {
@@ -249,9 +250,8 @@ namespace Shadowsocks.View
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
-            Startuplnkname = Shadowsocks._3rd.CreateDesktopShort.StartupPath + "\\" + System.IO.Path.GetFileName(Application.ExecutablePath).Replace(".exe", ".lnk").Replace(".EXE", ".lnk");
 
-            checkBoxAutoRun.Checked = File.Exists(Startuplnkname);
+            checkBoxAutoRun.Checked = AutoRunConfig.GetAutoRunFromRegedit();
 
             GetPassWord.m_mainform = this;
 
@@ -828,6 +828,11 @@ namespace Shadowsocks.View
 
         }
 
+        private void checkBoxAutoRun_CheckedChanged(object sender, EventArgs e)
+        {
+
+            AutoRunConfig.SetAutoRun(checkBoxAutoRun.Checked);
+        }
     }
 
 }
