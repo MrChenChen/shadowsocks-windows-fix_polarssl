@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -17,6 +18,8 @@ namespace Shadowsocks.Controller
     public class VersionChecker
     {
         private const string UpdateURL = "http://api.github.com/repos/MrChenChen/shadowsocks-windows-fix_polarssl/releases/latest";
+
+        public Form mainForm = null;
 
         public static string GetCurrentVersionNumber()
         {
@@ -34,7 +37,6 @@ namespace Shadowsocks.Controller
                 http.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; QQWubi 133; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; CIBA; InfoPath.2)");
                 http.DownloadStringCompleted += Http_DownloadStringCompleted;
                 http.DownloadStringAsync(new Uri(UpdateURL), null);
-
 
             });
         }
@@ -89,10 +91,30 @@ namespace Shadowsocks.Controller
                                         list_files.Add(GetJsonValue(tempJson, "browser_download_url"));
                                     }
 
-                                    
+                                    string oldPath = Application.ExecutablePath;
 
+                                    string newPath = Path.GetTempPath() + "Shadowsocks.exe";
 
+                                    string uri = list_files[0];
 
+                                    WebClient http = new WebClient();
+
+                                    http.DownloadFileCompleted += (o, e1) =>
+                                    {
+                                        if (e.Error == null)
+                                        {
+                                            string updater = Path.GetTempPath() + "Shadowsocks Update.exe";
+
+                                            ReleaseUpdater(updater);
+
+                                            Process.Start(updater, "2 " + mainForm.Handle + " " + oldPath + " " + newPath);
+
+                                        }
+                                    };
+
+                                    File.Delete(newPath);
+
+                                    http.DownloadFile(new Uri(uri), newPath);
 
                                 }
 
@@ -116,7 +138,6 @@ namespace Shadowsocks.Controller
 
         }
 
-
         public static string GetJsonValue(JsonObject json, string key)
         {
             object name;
@@ -126,6 +147,13 @@ namespace Shadowsocks.Controller
             return (string)name;
         }
 
+        public static void ReleaseUpdater(string uri)
+        {
+            File.WriteAllBytes(uri, Properties.Resources.Shadowsocks_Update);
+        }
+
 
     }
+
+
 }

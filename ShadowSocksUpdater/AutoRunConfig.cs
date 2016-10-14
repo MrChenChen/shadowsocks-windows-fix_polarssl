@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Shadowsocks._3rd
+namespace ShadowSocksUpdater
 {
     class AutoRunConfig
     {
-        public static readonly string StartupPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Startup);
 
 #if false
 
@@ -43,25 +42,26 @@ namespace Shadowsocks._3rd
 
         }
 
-        public static void SetAutoRun(bool b)
+        public static void EnableAutoRun(string path)
         {
-            if (b)
+
+            if (!GetAutoRunFromRegedit())
             {
-                if (!GetAutoRunFromRegedit())
-                {
-                    RegistryKey reg = Registry.LocalMachine;
-                    RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                    run.SetValue("Shadowsocks", Application.ExecutablePath);
-                }
+                RegistryKey reg = Registry.LocalMachine;
+                RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                run.SetValue("Shadowsocks", path);
             }
-            else
+
+        }
+
+
+        public static void DisableAutoRun()
+        {
+            if (GetAutoRunFromRegedit())
             {
-                if (GetAutoRunFromRegedit())
-                {
-                    RegistryKey reg = Registry.LocalMachine;
-                    RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                    run.DeleteValue("Shadowsocks");
-                }
+                RegistryKey reg = Registry.LocalMachine;
+                RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                run.DeleteValue("Shadowsocks");
             }
         }
 

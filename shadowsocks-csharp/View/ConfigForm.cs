@@ -14,7 +14,6 @@ using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Net;
-using Shadowsocks._3rd;
 
 namespace Shadowsocks.View
 {
@@ -44,6 +43,8 @@ namespace Shadowsocks.View
             m_settings = Properties.Settings.Default;
 
             notifyIcon1.ContextMenu = contextMenu1;
+
+            mUpdater.mainForm = this;
 
             this.controller = controller;
             controller.EnableStatusChanged += controller_EnableStatusChanged;
@@ -246,12 +247,12 @@ namespace Shadowsocks.View
                 items[configuration.index].Checked = true;
             }
         }
-        string Startuplnkname;
+
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
+            //获取开机启动设置
 
-            checkBoxAutoRun.Checked = AutoRunConfig.GetAutoRunFromRegedit();
 
             GetPassWord.m_mainform = this;
 
@@ -300,6 +301,10 @@ namespace Shadowsocks.View
 
         private const int WM_QUERYENDSESSION = 0x11;
 
+        const int EnabelAutoRun_Return = 2016;
+
+        const int DisabelAutoRun_Return = 2017;
+
         protected override void DefWndProc(ref System.Windows.Forms.Message m)
         {
             switch (m.Msg)
@@ -311,6 +316,12 @@ namespace Shadowsocks.View
                     notifyIcon1.Dispose();
                     SystemProxy.Disable();
                     Environment.Exit(0);
+                    break;
+                case EnabelAutoRun_Return:
+
+                    break;
+                case DisabelAutoRun_Return:
+
                     break;
                 default:
                     base.DefWndProc(ref m);//一定要调用基类函数，以便系统处理其它消息。
@@ -467,7 +478,9 @@ namespace Shadowsocks.View
 
         private void AboutItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/clowwindy/shadowsocks-csharp");
+            //Process.Start("https://github.com/clowwindy/shadowsocks-csharp");
+
+            MessageBox.Show("Created by clowwindy\r\nManaged by ChenChen", "ShadowSocks " + VersionChecker.GetCurrentVersionNumber());
         }
 
 
@@ -830,8 +843,8 @@ namespace Shadowsocks.View
 
         private void checkBoxAutoRun_CheckedChanged(object sender, EventArgs e)
         {
+            //设置开机启动
 
-            AutoRunConfig.SetAutoRun(checkBoxAutoRun.Checked);
         }
     }
 

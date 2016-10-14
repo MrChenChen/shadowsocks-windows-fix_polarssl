@@ -70,7 +70,6 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="3rd\AutoRunConfig.cs" />
     <Compile Include="3rd\QRCodeCS.cs" />
     <Compile Include="3rd\SimpleJson.cs" />
     <Compile Include="Controller\FileManager.cs" />
@@ -125,7 +124,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest" />
-    <None Include="Data\libeay32.dll.gz" />
     <None Include="Data\polarssl.dll.gz" />
     <None Include="Data\polipo.exe.gz" />
     <None Include="Data\polipo_config.txt" />
@@ -145,6 +143,7 @@
     <None Include="Resources\ss16.png" />
     <None Include="Resources\ss24.png" />
     <None Include="Resources\ssw128.png" />
+    <None Include="bin\x86\Debug\Shadowsocks Update.exe" />
     <Content Include="Data\ss32.ico" />
     <Content Include="shadowsocks.ico" />
   </ItemGroup>
