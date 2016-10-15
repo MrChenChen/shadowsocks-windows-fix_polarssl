@@ -19,7 +19,7 @@ namespace ShadowSocksUpdater
 
         const int EnabelAutoRun_Return = 2016;
         const int DisabelAutoRun_Return = 2017;
- 
+
 
         // 调用一个窗口的窗口函数，将一条消息发给那个窗口。除非消息处理完毕，否则该函数不会返回。SendMessageBynum， SendMessageByString是该函数的“类型安全”声明形式
         [DllImport("user32", EntryPoint = "SendMessage", SetLastError = false,
@@ -39,15 +39,24 @@ namespace ShadowSocksUpdater
         {
             if (args.Length == 0) return;
 
+            string cmdline = "";
+
+            foreach (var item in args)
+            {
+                cmdline += item + " ";
+            }
+
+            var arg = cmdline.Trim().Split('|');
+
             int type = -1;
 
             IntPtr mainIntptr = IntPtr.Zero;
 
             try
             {
-                type = int.Parse(args[0]);
+                type = int.Parse(arg[0]);
 
-                if (args.Length >= 2) mainIntptr = (IntPtr)int.Parse(args[1]);
+                if (arg.Length >= 2) mainIntptr = (IntPtr)int.Parse(arg[1]);
 
             }
             catch (Exception)
@@ -63,12 +72,12 @@ namespace ShadowSocksUpdater
                         //1: MainForm Hwnd
                         //2: Executable Path
 
-                        if (args.Length == 3 &&
-                            args[2].EndsWith(".exe", StringComparison.OrdinalIgnoreCase) &&
-                            File.Exists(args[2])
+                        if (arg.Length == 3 &&
+                            arg[2].EndsWith(".exe", StringComparison.OrdinalIgnoreCase) &&
+                            File.Exists(arg[2])
                             )
                         {
-                            AutoRunConfig.EnableAutoRun(args[2]);
+                            AutoRunConfig.EnableAutoRun(arg[2]);
                         }
 
                         SendMessage(mainIntptr, DisabelAutoRun_Return, 0, 0);
@@ -92,12 +101,13 @@ namespace ShadowSocksUpdater
                         //1: MainForm Hwnd
                         //2: Old EXE Path
                         //3: New EXE Path
+                        MessageBox.Show("Update");
 
-                        if (args.Length != 4) return;
+                        if (arg.Length != 4) return;
 
                         SendMessage(mainIntptr, WM_QUERYENDSESSION, 0, 0);
 
-                        string oldPath = args[2]; string newPath = args[3];
+                        string oldPath = arg[2]; string newPath = arg[3];
 
                         Thread.Sleep(15);
 

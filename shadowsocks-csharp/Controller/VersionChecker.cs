@@ -107,7 +107,7 @@ namespace Shadowsocks.Controller
 
                                             ReleaseUpdater(updater);
 
-                                            Process.Start(updater, "2 " + mainForm.Handle + " " + oldPath + " " + newPath);
+                                            Process.Start(updater, "2|" + mainForm.Handle + "|" + oldPath + "|" + newPath);
 
                                         }
                                     };

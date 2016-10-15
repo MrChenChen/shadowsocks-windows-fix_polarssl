@@ -841,9 +841,30 @@ namespace Shadowsocks.View
 
         }
 
-        private void checkBoxAutoRun_CheckedChanged(object sender, EventArgs e)
+
+        private void checkBoxAutoRun_Click(object sender, EventArgs e)
         {
             //设置开机启动
+            string updater = Path.GetTempPath() + "Shadowsocks Update.exe";
+
+            VersionChecker.ReleaseUpdater(updater);
+
+            try
+            {
+                if (checkBoxAutoRun.Checked)
+                {
+                    Process.Start(updater, "0|" + Handle + "|" + Application.ExecutablePath);
+                }
+                else
+                {
+                    Process.Start(updater, "1|" + Handle);
+                }
+            }
+            catch (Exception)
+            {
+                checkBoxAutoRun.Checked = !checkBoxAutoRun.Checked;
+            }
+
 
         }
     }

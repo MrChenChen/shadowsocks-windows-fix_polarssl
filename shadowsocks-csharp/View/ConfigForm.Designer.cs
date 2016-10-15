@@ -86,8 +86,10 @@
             this.buttonDel = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.listBoxADs = new System.Windows.Forms.ListBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -494,6 +496,7 @@
             // 
             // ServerGroupBox
             // 
+            this.ServerGroupBox.Controls.Add(this.pictureBox1);
             this.ServerGroupBox.Controls.Add(this.checkBoxAutoHide);
             this.ServerGroupBox.Controls.Add(this.checkBoxAutoRun);
             this.ServerGroupBox.Controls.Add(this.tableLayoutPanel1);
@@ -509,7 +512,7 @@
             // checkBoxAutoHide
             // 
             this.checkBoxAutoHide.AutoSize = true;
-            this.checkBoxAutoHide.Location = new System.Drawing.Point(200, 276);
+            this.checkBoxAutoHide.Location = new System.Drawing.Point(166, 274);
             this.checkBoxAutoHide.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAutoHide.Name = "checkBoxAutoHide";
             this.checkBoxAutoHide.Size = new System.Drawing.Size(106, 22);
@@ -520,13 +523,13 @@
             // checkBoxAutoRun
             // 
             this.checkBoxAutoRun.AutoSize = true;
-            this.checkBoxAutoRun.Location = new System.Drawing.Point(310, 276);
+            this.checkBoxAutoRun.Location = new System.Drawing.Point(310, 274);
             this.checkBoxAutoRun.Name = "checkBoxAutoRun";
             this.checkBoxAutoRun.Size = new System.Drawing.Size(106, 22);
             this.checkBoxAutoRun.TabIndex = 12;
             this.checkBoxAutoRun.Text = "开机启动";
             this.checkBoxAutoRun.UseVisualStyleBackColor = true;
-            this.checkBoxAutoRun.CheckedChanged += new System.EventHandler(this.checkBoxAutoRun_CheckedChanged);
+            this.checkBoxAutoRun.Click += new System.EventHandler(this.checkBoxAutoRun_Click);
             // 
             // checkBoxKillNew
             // 
@@ -649,6 +652,16 @@
             this.listBoxADs.Size = new System.Drawing.Size(311, 254);
             this.listBoxADs.TabIndex = 14;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(274, 268);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(30, 30);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.OKButton;
@@ -688,6 +701,7 @@
             this.tableLayoutPanel1.PerformLayout();
             this.ServerGroupBox.ResumeLayout(false);
             this.ServerGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -751,6 +765,7 @@
         private System.Windows.Forms.MenuItem menuItemAutoCheckUpdate;
         private System.Windows.Forms.MenuItem menuItemStartCheckUpdate;
         private System.Windows.Forms.MenuItem menuItem7;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
