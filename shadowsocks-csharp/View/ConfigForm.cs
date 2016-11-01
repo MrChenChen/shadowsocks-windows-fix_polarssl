@@ -849,22 +849,18 @@ namespace Shadowsocks.View
 
             VersionChecker.ReleaseUpdater(updater);
 
-            try
-            {
-                if (checkBoxAutoRun.Checked)
-                {
-                    Process.Start(updater, "0|" + Handle + "|" + Application.ExecutablePath);
-                }
-                else
-                {
-                    Process.Start(updater, "1|" + Handle);
-                }
-            }
-            catch (Exception)
-            {
-                checkBoxAutoRun.Checked = !checkBoxAutoRun.Checked;
-            }
 
+            if (checkBoxAutoRun.Checked)
+            {
+                string s = "0|" + Handle + "|" + Application.ExecutablePath;
+
+                Process.Start(updater, "0|" + Handle + "|" + Application.ExecutablePath);
+            }
+            else
+            {
+                Process.Start(updater, "1|" + Handle);
+            }
+ 
 
         }
     }
