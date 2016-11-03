@@ -64,6 +64,7 @@ namespace ShadowSocksUpdater
                 return;
             }
 
+
             switch (type)
             {
                 case EnabelAutoRun:

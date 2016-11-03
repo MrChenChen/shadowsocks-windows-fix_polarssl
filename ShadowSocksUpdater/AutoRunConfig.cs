@@ -36,7 +36,7 @@ namespace ShadowSocksUpdater
         public static bool GetAutoRunFromRegedit()
         {
             RegistryKey reg = Registry.LocalMachine;
-            RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+            RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run");
 
             return run.GetValue("Shadowsocks") != null;
 
@@ -44,11 +44,12 @@ namespace ShadowSocksUpdater
 
         public static void EnableAutoRun(string path)
         {
+            path = path.Replace("\\\\", @"\");
 
             if (!GetAutoRunFromRegedit())
             {
                 RegistryKey reg = Registry.LocalMachine;
-                RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run");
                 run.SetValue("Shadowsocks", path);
             }
 
@@ -60,7 +61,7 @@ namespace ShadowSocksUpdater
             if (GetAutoRunFromRegedit())
             {
                 RegistryKey reg = Registry.LocalMachine;
-                RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                RegistryKey run = reg.CreateSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run");
                 run.DeleteValue("Shadowsocks");
             }
         }
