@@ -881,9 +881,10 @@ namespace Shadowsocks.View
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 checkBoxAutoRun.Checked = !checkBoxAutoRun.Checked;
+                MessageBox.Show(ex.Message);
             }
 
 
