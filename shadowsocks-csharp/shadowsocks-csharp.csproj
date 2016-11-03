@@ -144,6 +144,7 @@
     <None Include="Resources\ss24.png" />
     <None Include="Resources\ssw128.png" />
     <None Include="bin\x86\Debug\Shadowsocks Update.exe" />
+    <None Include="bin\x86\Debug\CreateLinkFile.dll" />
     <Content Include="Data\ss32.ico" />
     <Content Include="shadowsocks.ico" />
   </ItemGroup>

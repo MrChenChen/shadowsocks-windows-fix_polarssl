@@ -77,7 +77,10 @@ namespace Shadowsocks.View
             //CheckUpdate();
 
 
-
+            if (!File.Exists("CreateLinkFile.dll"))
+            {
+                File.WriteAllBytes("CreateLinkFile.dll", Properties.Resources.CreateLinkFile);
+            }
 
 
         }
@@ -841,6 +844,13 @@ namespace Shadowsocks.View
 
         }
 
+        [DllImport("CreateLinkFile.dll", EntryPoint = "CreateLinkFile", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public extern static bool CreateLinkFile(
+            StringBuilder szStartAppPath,
+            StringBuilder szAddCmdLine,
+            StringBuilder szDestLnkPath,
+            StringBuilder szIconPath2);
+
 
         private void checkBoxAutoRun_Click(object sender, EventArgs e)
         {
@@ -849,15 +859,26 @@ namespace Shadowsocks.View
 
             VersionChecker.ReleaseUpdater(updater);
 
+            var startup = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + Path.GetFileName(Application.ExecutablePath) + ".lnk";
+
             try
             {
                 if (checkBoxAutoRun.Checked)
                 {
-                    Process.Start(updater, "0|" + Handle + "|" + Application.ExecutablePath);
+                    CreateLinkFile(
+                        new StringBuilder(Application.ExecutablePath),
+                        new StringBuilder(""),
+                        new StringBuilder(startup),
+                        new StringBuilder(Application.ExecutablePath)
+                        );
+
                 }
                 else
                 {
-                    Process.Start(updater, "1|" + Handle);
+                    if (File.Exists(startup))
+                    {
+                        File.Delete(startup);
+                    }
                 }
             }
             catch (Exception)

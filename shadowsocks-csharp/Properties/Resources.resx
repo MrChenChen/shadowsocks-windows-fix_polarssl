@@ -145,4 +145,7 @@
   <data name="Shadowsocks_Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\x86\Debug\Shadowsocks Update.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="CreateLinkFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\x86\Debug\CreateLinkFile.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

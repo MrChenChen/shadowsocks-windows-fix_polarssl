@@ -63,6 +63,16 @@ namespace Shadowsocks.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
+        internal static byte[] CreateLinkFile {
+            get {
+                object obj = ResourceManager.GetObject("CreateLinkFile", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
         internal static byte[] polarssl_dll {
             get {
                 object obj = ResourceManager.GetObject("polarssl_dll", resourceCulture);
