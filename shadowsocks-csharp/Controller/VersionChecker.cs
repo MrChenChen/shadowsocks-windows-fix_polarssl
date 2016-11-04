@@ -93,8 +93,6 @@ namespace Shadowsocks.Controller
 
                                     string oldPath = Application.ExecutablePath;
 
-                                    string newPath = Path.GetTempPath() + "Shadowsocks.exe";
-
                                     string uri = list_files[0];
 
                                     WebClient http = new WebClient();
@@ -103,18 +101,11 @@ namespace Shadowsocks.Controller
                                     {
                                         if (e.Error == null)
                                         {
-                                            string updater = Path.GetTempPath() + "Shadowsocks Update.exe";
-
-                                            ReleaseUpdater(updater);
-
-                                            Process.Start(updater, "2|" + mainForm.Handle + "|" + oldPath + "|" + newPath);
-
+                                           
                                         }
                                     };
 
-                                    File.Delete(newPath);
-
-                                    http.DownloadFile(new Uri(uri), newPath);
+                                    //http.DownloadFile(new Uri(uri), newPath);
 
                                 }
 
@@ -147,11 +138,7 @@ namespace Shadowsocks.Controller
             return (string)name;
         }
 
-        public static void ReleaseUpdater(string uri)
-        {
-            File.WriteAllBytes(uri, Properties.Resources.Shadowsocks_Update);
-        }
-
+ 
 
     }
 

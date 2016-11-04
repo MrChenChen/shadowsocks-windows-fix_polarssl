@@ -855,9 +855,6 @@ namespace Shadowsocks.View
         private void checkBoxAutoRun_Click(object sender, EventArgs e)
         {
             //设置开机启动
-            string updater = Path.GetTempPath() + "Shadowsocks Update.exe";
-
-            VersionChecker.ReleaseUpdater(updater);
 
             var startup = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + Path.GetFileName(Application.ExecutablePath) + ".lnk";
 

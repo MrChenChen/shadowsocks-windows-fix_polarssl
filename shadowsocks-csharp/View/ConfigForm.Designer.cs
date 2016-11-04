@@ -73,7 +73,6 @@
             this.DeleteButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.ServerGroupBox = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkBoxAutoHide = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoRun = new System.Windows.Forms.CheckBox();
             this.checkBoxKillNew = new System.Windows.Forms.CheckBox();
@@ -89,7 +88,6 @@
             this.listBoxADs = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -480,7 +478,6 @@
             // 
             // ServerGroupBox
             // 
-            this.ServerGroupBox.Controls.Add(this.pictureBox1);
             this.ServerGroupBox.Controls.Add(this.checkBoxAutoHide);
             this.ServerGroupBox.Controls.Add(this.checkBoxAutoRun);
             this.ServerGroupBox.Controls.Add(this.tableLayoutPanel1);
@@ -491,21 +488,10 @@
             this.ServerGroupBox.TabStop = false;
             this.ServerGroupBox.Text = "服务器";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(183, 179);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 14;
-            this.pictureBox1.TabStop = false;
-            // 
             // checkBoxAutoHide
             // 
             this.checkBoxAutoHide.AutoSize = true;
-            this.checkBoxAutoHide.Location = new System.Drawing.Point(111, 183);
+            this.checkBoxAutoHide.Location = new System.Drawing.Point(130, 183);
             this.checkBoxAutoHide.Name = "checkBoxAutoHide";
             this.checkBoxAutoHide.Size = new System.Drawing.Size(72, 16);
             this.checkBoxAutoHide.TabIndex = 13;
@@ -679,7 +665,6 @@
             this.tableLayoutPanel1.PerformLayout();
             this.ServerGroupBox.ResumeLayout(false);
             this.ServerGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -743,7 +728,6 @@
         private System.Windows.Forms.MenuItem menuItemAutoCheckUpdate;
         private System.Windows.Forms.MenuItem menuItemStartCheckUpdate;
         private System.Windows.Forms.MenuItem menuItem7;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
