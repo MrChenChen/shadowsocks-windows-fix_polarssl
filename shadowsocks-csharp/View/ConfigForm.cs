@@ -889,6 +889,12 @@ namespace Shadowsocks.View
 
 
         }
+
+        private void menuItemBase64_Click(object sender, EventArgs e)
+        {
+            Base64Form f = new Base64Form();
+            f.Show();
+        }
     }
 
 }
