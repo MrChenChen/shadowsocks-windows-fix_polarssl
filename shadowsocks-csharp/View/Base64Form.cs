@@ -25,7 +25,7 @@ namespace Shadowsocks.View
             }
             else
             {
-                System.Text.Encoding encode = System.Text.Encoding.ASCII;
+                System.Text.Encoding encode = System.Text.Encoding.UTF8;
                 byte[] bytedata = encode.GetBytes(textBoxSrc.Text);
                 textBoxDst.Text = Convert.ToBase64String(bytedata, 0, bytedata.Length);
                 Clipboard.SetText(textBoxDst.Text);
@@ -54,7 +54,7 @@ namespace Shadowsocks.View
                 try
                 {
                     byte[] bpath = Convert.FromBase64String(textBoxDst.Text);
-                    textBoxSrc.Text = System.Text.ASCIIEncoding.Default.GetString(bpath);
+                    textBoxSrc.Text = System.Text.ASCIIEncoding.UTF8.GetString(bpath);
 
                     Clipboard.SetText(textBoxSrc.Text);
 
