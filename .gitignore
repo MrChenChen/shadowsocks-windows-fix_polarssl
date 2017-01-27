@@ -7,3 +7,18 @@ TestResults
 
 /shadowsocks-csharp/Resources/Thumbs.db
 /shadowsocks-csharp/Thumbs.db
+/.vs/shadowsocks-csharp/v15/Browse.VC.opendb
+*.db
+*.opendb
+*.tlog
+*.tlog
+*.log
+*.filters
+*.db-shm
+*.ipch
+*.db-wal
+*.sqlite
+*.json
+*.idb
+*.pdb
+*.obj

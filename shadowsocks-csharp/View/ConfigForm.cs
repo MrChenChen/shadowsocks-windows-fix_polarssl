@@ -28,7 +28,7 @@ namespace Shadowsocks.View
         private VersionChecker mUpdater = new VersionChecker();
 
         // this is a copy of configuration that we are working on
-        private Configuration _modifiedConfiguration;
+        public Configuration _modifiedConfiguration;
         private int _oldSelectedIndex = -1;
         private bool _isFirstRun;
 
@@ -77,10 +77,10 @@ namespace Shadowsocks.View
             //CheckUpdate();
 
 
-            if (!File.Exists("CreateLinkFile.dll"))
-            {
-                File.WriteAllBytes("CreateLinkFile.dll", Properties.Resources.CreateLinkFile);
-            }
+            //if (!File.Exists("CreateLinkFile.dll"))
+            //{
+            //    File.WriteAllBytes("CreateLinkFile.dll", Properties.Resources.CreateLinkFile);
+            //}
 
 
         }

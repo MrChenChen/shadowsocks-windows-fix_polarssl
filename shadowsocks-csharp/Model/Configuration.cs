@@ -20,6 +20,7 @@ namespace Shadowsocks.Model
         public bool autohide;
         public bool autorun;
         public bool autoupdate;
+        public string passworduri;
 
         public List<string> ads;
 
@@ -54,6 +55,10 @@ namespace Shadowsocks.Model
                 string configContent = File.ReadAllText(CONFIG_FILE);
                 Configuration config = SimpleJson.SimpleJson.DeserializeObject<Configuration>(configContent, new JsonSerializerStrategy());
                 config.isDefault = false;
+                if (config.passworduri == "" || !config.passworduri.StartsWith("http"))
+                {
+                    config.passworduri = "http://www.ishadowsocks.mobi/";
+                }
                 return config;
             }
             catch (Exception e)

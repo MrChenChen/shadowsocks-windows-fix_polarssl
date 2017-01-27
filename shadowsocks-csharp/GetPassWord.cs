@@ -18,15 +18,16 @@ namespace Shadowsocks
     {
         public static void GetPassWordFromNet(int i)
         {
-            WebClient http = new WebClient();
-
-            http.Encoding = Encoding.UTF8;
+            WebClient http = new WebClient()
+            {
+                Encoding = Encoding.UTF8
+            };
 
             index = i;
 
             http.DownloadStringCompleted += http_DownloadStringCompleted;
 
-            http.DownloadStringAsync(new Uri(@"http://www.ishadowsocks.org/"));
+            http.DownloadStringAsync(new Uri(m_mainform._modifiedConfiguration.passworduri));
 
         }
 
