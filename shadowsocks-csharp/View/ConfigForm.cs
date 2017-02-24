@@ -316,6 +316,7 @@ namespace Shadowsocks.View
                     //string message = string.Format("收到自己消息的参数:{0},{1}", m.WParam, m.LParam);
                     //处理启动 函数MessageBox.Show(message);//显示一个消息框
                     Close();
+                    controller.Stop();
                     notifyIcon1.Dispose();
                     SystemProxy.Disable();
                     Environment.Exit(0);
@@ -429,6 +430,7 @@ namespace Shadowsocks.View
         private void Quit_Click(object sender, EventArgs e)
         {
             Close();
+            controller.Stop();
             notifyIcon1.Dispose();
             SystemProxy.Disable();
             Environment.Exit(0);
@@ -555,7 +557,7 @@ namespace Shadowsocks.View
 
 
 
-                Task.Factory.StartNew(() =>
+                new Thread(() =>
                 {
 
                     if (GetPassWord.myserverlist[0].password.Length >= 6)
@@ -597,7 +599,7 @@ namespace Shadowsocks.View
 
 
 
-                });
+                }){ IsBackground = true }.Start();
 
 
             };
