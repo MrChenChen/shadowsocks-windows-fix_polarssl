@@ -318,7 +318,6 @@ namespace Shadowsocks.View
                     Close();
                     controller.Stop();
                     notifyIcon1.Dispose();
-                    SystemProxy.Disable();
                     Environment.Exit(0);
                     break;
                 case EnabelAutoRun_Return:
@@ -432,7 +431,6 @@ namespace Shadowsocks.View
             Close();
             controller.Stop();
             notifyIcon1.Dispose();
-            SystemProxy.Disable();
             Environment.Exit(0);
         }
 
@@ -485,7 +483,7 @@ namespace Shadowsocks.View
         {
             //Process.Start("https://github.com/clowwindy/shadowsocks-csharp");
 
-            MessageBox.Show("Created by clowwindy\r\nManaged by ChenChen", "ShadowSocks " + VersionChecker.GetCurrentVersionNumber());
+            MessageBox.Show("Created by clowwindy\r\nModified by MrChenChen", "ShadowSocks " + VersionChecker.GetCurrentVersionNumber());
         }
 
 
@@ -493,7 +491,7 @@ namespace Shadowsocks.View
         private void EnableItem_Click(object sender, EventArgs e)
         {
             enableItem.Checked = !enableItem.Checked;
-            controller.ToggleEnable(enableItem.Checked);
+            checkBoxEnable.Checked = enableItem.Checked;
         }
 
         private void ShareOverLANItem_Click(object sender, EventArgs e)
@@ -537,6 +535,7 @@ namespace Shadowsocks.View
         {
             controller.ToggleEnable(checkBoxEnable.Checked);
             enableItem.Checked = checkBoxEnable.Checked;
+
         }
 
 
@@ -599,7 +598,8 @@ namespace Shadowsocks.View
 
 
 
-                }){ IsBackground = true }.Start();
+                })
+                { IsBackground = true }.Start();
 
 
             };
@@ -886,7 +886,6 @@ namespace Shadowsocks.View
                 MessageBox.Show(ex.Message);
             }
 
-
         }
 
         private void menuItemBase64_Click(object sender, EventArgs e)
@@ -894,6 +893,8 @@ namespace Shadowsocks.View
             Base64Form f = new Base64Form();
             f.Show();
         }
+
+
     }
 
 }
