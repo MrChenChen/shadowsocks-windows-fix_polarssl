@@ -563,7 +563,7 @@
             // buttonRefresh
             // 
             this.buttonRefresh.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonRefresh.Location = new System.Drawing.Point(215, 342);
+            this.buttonRefresh.Location = new System.Drawing.Point(234, 342);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(112, 44);
             this.buttonRefresh.TabIndex = 1;
