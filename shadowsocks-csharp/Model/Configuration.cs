@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -13,14 +13,14 @@ namespace Shadowsocks.Model
         }
 
         public List<Server> configs;
-        public int index = -1;
+        public int index;
         public bool enabled;
         public bool shareOverLan;
         public bool isDefault;
         public bool autohide;
         public bool autorun;
         public bool autoupdate;
-        public string passworduri = "https://ishadow.info/";
+        public string passworduri = "https://ishadow.info";
 
         public List<string> ads;
 
@@ -81,8 +81,15 @@ namespace Shadowsocks.Model
 
         public static void Save(Configuration config)
         {
+            if (config.index >= config.configs.Count)
+            {
+                config.index = config.configs.Count - 1;
+            }
+            if (config.index < 0)
+            {
+                config.index = 0;
+            }
             config.isDefault = false;
-
             try
             {
                 using (StreamWriter sw = new StreamWriter(File.Open(CONFIG_FILE, FileMode.Create)))

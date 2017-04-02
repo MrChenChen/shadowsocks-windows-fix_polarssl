@@ -1,9 +1,10 @@
-using System.IO;
+﻿using System.IO;
 using Shadowsocks.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using static System.Net.Mime.MediaTypeNames;
 using Shadowsocks.View;
 
 namespace Shadowsocks.Controller
@@ -74,7 +75,6 @@ namespace Shadowsocks.Controller
                 _config.autohide = form.checkBoxAutoHide.Checked;
                 _config.autorun = form.checkBoxAutoRun.Checked;
                 _config.autoupdate = form.tempAutoCheckUpdate;
-                _config.index = form._modifiedConfiguration.index;
                 _config.ads.Clear();
                 foreach (string item in form.listBoxADs.Items)
                 {
@@ -116,8 +116,6 @@ namespace Shadowsocks.Controller
 
         public void Stop()
         {
-
-
             if (stopped)
             {
                 return;

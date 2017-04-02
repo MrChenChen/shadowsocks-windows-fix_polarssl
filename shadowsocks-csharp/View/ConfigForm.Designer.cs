@@ -1,4 +1,4 @@
-namespace Shadowsocks.View
+﻿namespace Shadowsocks.View
 {
     partial class ConfigForm
     {
@@ -44,10 +44,13 @@ namespace Shadowsocks.View
             this.label5 = new System.Windows.Forms.Label();
             this.EncryptionSelect = new System.Windows.Forms.ComboBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
             this.OKButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenu1 = new System.Windows.Forms.ContextMenu();
             this.enableItem = new System.Windows.Forms.MenuItem();
+            this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.ShareOverLANItem = new System.Windows.Forms.MenuItem();
             this.ServersItem = new System.Windows.Forms.MenuItem();
             this.SeperatorItem = new System.Windows.Forms.MenuItem();
             this.ConfigItem = new System.Windows.Forms.MenuItem();
@@ -65,30 +68,23 @@ namespace Shadowsocks.View
             this.aboutItem = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.quitItem = new System.Windows.Forms.MenuItem();
+            this.DeleteButton = new System.Windows.Forms.Button();
+            this.AddButton = new System.Windows.Forms.Button();
             this.ServerGroupBox = new System.Windows.Forms.GroupBox();
             this.checkBoxEnable = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoHide = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoRun = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageInfo = new System.Windows.Forms.TabPage();
-            this.buttonRefresh = new System.Windows.Forms.Button();
-            this.buttonApply = new System.Windows.Forms.Button();
-            this.listBoxInfo = new System.Windows.Forms.ListBox();
-            this.tabPageAds = new System.Windows.Forms.TabPage();
             this.checkBoxKillNew = new System.Windows.Forms.CheckBox();
-            this.listBoxADs = new System.Windows.Forms.ListBox();
             this.ServersListBox = new System.Windows.Forms.ListBox();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.AddButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonDel = new System.Windows.Forms.Button();
-            this.DeleteButton = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.listBoxADs = new System.Windows.Forms.ListBox();
+            this.comboBoxServers = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPageInfo.SuspendLayout();
-            this.tabPageAds.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -110,10 +106,10 @@ namespace Shadowsocks.View
             this.tableLayoutPanel1.Controls.Add(this.PasswordTextBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.EncryptionSelect, 1, 3);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 13);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 20);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(8);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(8);
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -121,16 +117,17 @@ namespace Shadowsocks.View
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(271, 171);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(404, 230);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // RemarksTextBox
             // 
             this.RemarksTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.RemarksTextBox.Location = new System.Drawing.Point(103, 142);
+            this.RemarksTextBox.Location = new System.Drawing.Point(154, 190);
+            this.RemarksTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.RemarksTextBox.Name = "RemarksTextBox";
             this.RemarksTextBox.ReadOnly = true;
-            this.RemarksTextBox.Size = new System.Drawing.Size(160, 21);
+            this.RemarksTextBox.Size = new System.Drawing.Size(238, 28);
             this.RemarksTextBox.TabIndex = 10;
             this.RemarksTextBox.WordWrap = false;
             // 
@@ -138,9 +135,10 @@ namespace Shadowsocks.View
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(68, 146);
+            this.label6.Location = new System.Drawing.Point(102, 195);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.Size = new System.Drawing.Size(44, 18);
             this.label6.TabIndex = 9;
             this.label6.Text = "备注";
             // 
@@ -148,9 +146,10 @@ namespace Shadowsocks.View
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 12);
+            this.label1.Location = new System.Drawing.Point(57, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 12);
+            this.label1.Size = new System.Drawing.Size(89, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "服务器 IP";
             // 
@@ -158,19 +157,21 @@ namespace Shadowsocks.View
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 39);
+            this.label2.Location = new System.Drawing.Point(48, 53);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.Size = new System.Drawing.Size(98, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "服务器端口";
             // 
             // ProxyPortTextBox
             // 
             this.ProxyPortTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProxyPortTextBox.Location = new System.Drawing.Point(103, 115);
+            this.ProxyPortTextBox.Location = new System.Drawing.Point(154, 154);
+            this.ProxyPortTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ProxyPortTextBox.Name = "ProxyPortTextBox";
             this.ProxyPortTextBox.ReadOnly = true;
-            this.ProxyPortTextBox.Size = new System.Drawing.Size(160, 21);
+            this.ProxyPortTextBox.Size = new System.Drawing.Size(238, 28);
             this.ProxyPortTextBox.TabIndex = 4;
             this.ProxyPortTextBox.Text = "1080";
             this.ProxyPortTextBox.WordWrap = false;
@@ -179,9 +180,10 @@ namespace Shadowsocks.View
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 119);
+            this.label4.Location = new System.Drawing.Point(12, 159);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 12);
+            this.label4.Size = new System.Drawing.Size(134, 18);
             this.label4.TabIndex = 3;
             this.label4.Text = "代理服务器端口";
             // 
@@ -189,39 +191,43 @@ namespace Shadowsocks.View
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(68, 66);
+            this.label3.Location = new System.Drawing.Point(102, 89);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.Size = new System.Drawing.Size(44, 18);
             this.label3.TabIndex = 2;
             this.label3.Text = "密码";
             // 
             // IPTextBox
             // 
             this.IPTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.IPTextBox.Location = new System.Drawing.Point(103, 8);
+            this.IPTextBox.Location = new System.Drawing.Point(154, 12);
+            this.IPTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.IPTextBox.Name = "IPTextBox";
             this.IPTextBox.ReadOnly = true;
-            this.IPTextBox.Size = new System.Drawing.Size(160, 21);
+            this.IPTextBox.Size = new System.Drawing.Size(238, 28);
             this.IPTextBox.TabIndex = 0;
             this.IPTextBox.WordWrap = false;
             // 
             // ServerPortTextBox
             // 
             this.ServerPortTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ServerPortTextBox.Location = new System.Drawing.Point(103, 35);
+            this.ServerPortTextBox.Location = new System.Drawing.Point(154, 48);
+            this.ServerPortTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ServerPortTextBox.Name = "ServerPortTextBox";
             this.ServerPortTextBox.ReadOnly = true;
-            this.ServerPortTextBox.Size = new System.Drawing.Size(160, 21);
+            this.ServerPortTextBox.Size = new System.Drawing.Size(238, 28);
             this.ServerPortTextBox.TabIndex = 1;
             this.ServerPortTextBox.WordWrap = false;
             // 
             // PasswordTextBox
             // 
             this.PasswordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PasswordTextBox.Location = new System.Drawing.Point(103, 62);
+            this.PasswordTextBox.Location = new System.Drawing.Point(154, 84);
+            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.ReadOnly = true;
-            this.PasswordTextBox.Size = new System.Drawing.Size(160, 21);
+            this.PasswordTextBox.Size = new System.Drawing.Size(238, 28);
             this.PasswordTextBox.TabIndex = 2;
             this.PasswordTextBox.WordWrap = false;
             // 
@@ -229,9 +235,10 @@ namespace Shadowsocks.View
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(68, 93);
+            this.label5.Location = new System.Drawing.Point(102, 124);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 12);
+            this.label5.Size = new System.Drawing.Size(44, 18);
             this.label5.TabIndex = 8;
             this.label5.Text = "加密";
             // 
@@ -243,7 +250,7 @@ namespace Shadowsocks.View
             this.EncryptionSelect.Enabled = false;
             this.EncryptionSelect.FormattingEnabled = true;
             this.EncryptionSelect.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.EncryptionSelect.ItemHeight = 12;
+            this.EncryptionSelect.ItemHeight = 18;
             this.EncryptionSelect.Items.AddRange(new object[] {
             "table",
             "rc4-md5",
@@ -252,9 +259,10 @@ namespace Shadowsocks.View
             "aes-128-cfb",
             "bf-cfb",
             "rc4"});
-            this.EncryptionSelect.Location = new System.Drawing.Point(103, 89);
+            this.EncryptionSelect.Location = new System.Drawing.Point(154, 120);
+            this.EncryptionSelect.Margin = new System.Windows.Forms.Padding(4);
             this.EncryptionSelect.Name = "EncryptionSelect";
-            this.EncryptionSelect.Size = new System.Drawing.Size(160, 20);
+            this.EncryptionSelect.Size = new System.Drawing.Size(238, 26);
             this.EncryptionSelect.TabIndex = 3;
             // 
             // notifyIcon1
@@ -264,13 +272,25 @@ namespace Shadowsocks.View
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel2.AutoSize = true;
+            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel2.Location = new System.Drawing.Point(267, 262);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(0, 0);
+            this.panel2.TabIndex = 1;
+            // 
             // OKButton
             // 
             this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKButton.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.OKButton.Location = new System.Drawing.Point(369, 228);
+            this.OKButton.Location = new System.Drawing.Point(519, 342);
+            this.OKButton.Margin = new System.Windows.Forms.Padding(4);
             this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(75, 29);
+            this.OKButton.Size = new System.Drawing.Size(112, 44);
             this.OKButton.TabIndex = 8;
             this.OKButton.Text = "确定";
             this.OKButton.UseVisualStyleBackColor = true;
@@ -280,7 +300,7 @@ namespace Shadowsocks.View
             // 
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel1.Location = new System.Drawing.Point(310, 224);
+            this.panel1.Location = new System.Drawing.Point(430, 336);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(0, 0);
@@ -290,6 +310,8 @@ namespace Shadowsocks.View
             // 
             this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.enableItem,
+            this.menuItem5,
+            this.ShareOverLANItem,
             this.ServersItem,
             this.menuItem6,
             this.menuItem7,
@@ -306,12 +328,27 @@ namespace Shadowsocks.View
             // 
             // enableItem
             // 
+            this.enableItem.Checked = true;
             this.enableItem.Index = 0;
             this.enableItem.Text = "开启";
+            this.enableItem.Click += new System.EventHandler(this.EnableItem_Click);
+            // 
+            // menuItem5
+            // 
+            this.menuItem5.Index = 1;
+            this.menuItem5.Text = "-";
+            this.menuItem5.Visible = false;
+            // 
+            // ShareOverLANItem
+            // 
+            this.ShareOverLANItem.Index = 2;
+            this.ShareOverLANItem.Text = "Share over LAN";
+            this.ShareOverLANItem.Visible = false;
+            this.ShareOverLANItem.Click += new System.EventHandler(this.ShareOverLANItem_Click);
             // 
             // ServersItem
             // 
-            this.ServersItem.Index = 1;
+            this.ServersItem.Index = 3;
             this.ServersItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.SeperatorItem,
             this.ConfigItem});
@@ -331,54 +368,54 @@ namespace Shadowsocks.View
             // 
             // menuItem6
             // 
-            this.menuItem6.Index = 2;
+            this.menuItem6.Index = 4;
             this.menuItem6.Text = "-";
             // 
             // menuItem7
             // 
-            this.menuItem7.Index = 3;
+            this.menuItem7.Index = 5;
             this.menuItem7.Text = "打开工作目录";
             this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
             // 
             // menuItem1
             // 
-            this.menuItem1.Index = 4;
+            this.menuItem1.Index = 6;
             this.menuItem1.Text = "关闭迅雷后台进程";
             this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
             // 
             // menuItemBase64
             // 
-            this.menuItemBase64.Index = 5;
+            this.menuItemBase64.Index = 7;
             this.menuItemBase64.Text = "Base64 加密解密";
             this.menuItemBase64.Click += new System.EventHandler(this.menuItemBase64_Click);
             // 
             // menuItem4
             // 
-            this.menuItem4.Index = 6;
+            this.menuItem4.Index = 8;
             this.menuItem4.Text = "-";
             // 
             // editPACFileItem
             // 
-            this.editPACFileItem.Index = 7;
+            this.editPACFileItem.Index = 9;
             this.editPACFileItem.Text = "编辑 PAC 文件...";
             this.editPACFileItem.Click += new System.EventHandler(this.EditPACFileItem_Click);
             // 
             // QRCodeItem
             // 
-            this.QRCodeItem.Index = 8;
+            this.QRCodeItem.Index = 10;
             this.QRCodeItem.Text = "显示二维码...";
             this.QRCodeItem.Click += new System.EventHandler(this.QRCodeItem_Click);
             // 
             // ShowLogItem
             // 
-            this.ShowLogItem.Index = 9;
+            this.ShowLogItem.Index = 11;
             this.ShowLogItem.Text = "显示 Log..";
             this.ShowLogItem.Visible = false;
             this.ShowLogItem.Click += new System.EventHandler(this.ShowLogItem_Click);
             // 
             // menuItem2
             // 
-            this.menuItem2.Index = 10;
+            this.menuItem2.Index = 12;
             this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemAutoCheckUpdate,
             this.menuItemStartCheckUpdate});
@@ -399,20 +436,44 @@ namespace Shadowsocks.View
             // 
             // aboutItem
             // 
-            this.aboutItem.Index = 11;
+            this.aboutItem.Index = 13;
             this.aboutItem.Text = "关于...";
             this.aboutItem.Click += new System.EventHandler(this.AboutItem_Click);
             // 
             // menuItem3
             // 
-            this.menuItem3.Index = 12;
+            this.menuItem3.Index = 14;
             this.menuItem3.Text = "-";
             // 
             // quitItem
             // 
-            this.quitItem.Index = 13;
+            this.quitItem.Index = 15;
             this.quitItem.Text = "退出";
             this.quitItem.Click += new System.EventHandler(this.Quit_Click);
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Location = new System.Drawing.Point(124, 62);
+            this.DeleteButton.Margin = new System.Windows.Forms.Padding(4);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(98, 34);
+            this.DeleteButton.TabIndex = 7;
+            this.DeleteButton.Text = "删除";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Visible = false;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            // 
+            // AddButton
+            // 
+            this.AddButton.Location = new System.Drawing.Point(18, 62);
+            this.AddButton.Margin = new System.Windows.Forms.Padding(4);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(98, 34);
+            this.AddButton.TabIndex = 6;
+            this.AddButton.Text = "添加";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Visible = false;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // ServerGroupBox
             // 
@@ -420,9 +481,11 @@ namespace Shadowsocks.View
             this.ServerGroupBox.Controls.Add(this.checkBoxAutoHide);
             this.ServerGroupBox.Controls.Add(this.checkBoxAutoRun);
             this.ServerGroupBox.Controls.Add(this.tableLayoutPanel1);
-            this.ServerGroupBox.Location = new System.Drawing.Point(249, 12);
+            this.ServerGroupBox.Location = new System.Drawing.Point(339, 18);
+            this.ServerGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ServerGroupBox.Name = "ServerGroupBox";
-            this.ServerGroupBox.Size = new System.Drawing.Size(282, 205);
+            this.ServerGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            this.ServerGroupBox.Size = new System.Drawing.Size(423, 308);
             this.ServerGroupBox.TabIndex = 6;
             this.ServerGroupBox.TabStop = false;
             this.ServerGroupBox.Text = "服务器";
@@ -430,9 +493,10 @@ namespace Shadowsocks.View
             // checkBoxEnable
             // 
             this.checkBoxEnable.AutoSize = true;
-            this.checkBoxEnable.Location = new System.Drawing.Point(48, 183);
+            this.checkBoxEnable.Location = new System.Drawing.Point(72, 274);
+            this.checkBoxEnable.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxEnable.Name = "checkBoxEnable";
-            this.checkBoxEnable.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxEnable.Size = new System.Drawing.Size(106, 22);
             this.checkBoxEnable.TabIndex = 11;
             this.checkBoxEnable.Text = "开启通道";
             this.checkBoxEnable.UseVisualStyleBackColor = true;
@@ -441,10 +505,9 @@ namespace Shadowsocks.View
             // checkBoxAutoHide
             // 
             this.checkBoxAutoHide.AutoSize = true;
-            this.checkBoxAutoHide.Location = new System.Drawing.Point(127, 183);
-            this.checkBoxAutoHide.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxAutoHide.Location = new System.Drawing.Point(190, 274);
             this.checkBoxAutoHide.Name = "checkBoxAutoHide";
-            this.checkBoxAutoHide.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxAutoHide.Size = new System.Drawing.Size(106, 22);
             this.checkBoxAutoHide.TabIndex = 15;
             this.checkBoxAutoHide.Text = "自动隐藏";
             this.checkBoxAutoHide.UseVisualStyleBackColor = true;
@@ -452,198 +515,134 @@ namespace Shadowsocks.View
             // checkBoxAutoRun
             // 
             this.checkBoxAutoRun.AutoSize = true;
-            this.checkBoxAutoRun.Location = new System.Drawing.Point(205, 183);
-            this.checkBoxAutoRun.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxAutoRun.Location = new System.Drawing.Point(308, 274);
             this.checkBoxAutoRun.Name = "checkBoxAutoRun";
-            this.checkBoxAutoRun.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxAutoRun.Size = new System.Drawing.Size(106, 22);
             this.checkBoxAutoRun.TabIndex = 14;
             this.checkBoxAutoRun.Text = "开机启动";
             this.checkBoxAutoRun.UseVisualStyleBackColor = true;
             this.checkBoxAutoRun.Click += new System.EventHandler(this.checkBoxAutoRun_Click);
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(455, 228);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 29);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "退出";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Quit_Click);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPageInfo);
-            this.tabControl1.Controls.Add(this.tabPageAds);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(233, 242);
-            this.tabControl1.TabIndex = 15;
-            // 
-            // tabPageInfo
-            // 
-            this.tabPageInfo.Controls.Add(this.buttonRefresh);
-            this.tabPageInfo.Controls.Add(this.buttonApply);
-            this.tabPageInfo.Controls.Add(this.listBoxInfo);
-            this.tabPageInfo.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.tabPageInfo.Location = new System.Drawing.Point(4, 22);
-            this.tabPageInfo.Name = "tabPageInfo";
-            this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInfo.Size = new System.Drawing.Size(225, 216);
-            this.tabPageInfo.TabIndex = 0;
-            this.tabPageInfo.Text = "服务器配置";
-            this.tabPageInfo.UseVisualStyleBackColor = true;
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonRefresh.Location = new System.Drawing.Point(6, 185);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(63, 23);
-            this.buttonRefresh.TabIndex = 2;
-            this.buttonRefresh.Text = "刷新";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // buttonApply
-            // 
-            this.buttonApply.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonApply.Location = new System.Drawing.Point(151, 185);
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(63, 23);
-            this.buttonApply.TabIndex = 2;
-            this.buttonApply.Text = "应用";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
-            // 
-            // listBoxInfo
-            // 
-            this.listBoxInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBoxInfo.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listBoxInfo.FormattingEnabled = true;
-            this.listBoxInfo.ItemHeight = 19;
-            this.listBoxInfo.Items.AddRange(new object[] {
-            "正在刷新..."});
-            this.listBoxInfo.Location = new System.Drawing.Point(3, 3);
-            this.listBoxInfo.Name = "listBoxInfo";
-            this.listBoxInfo.Size = new System.Drawing.Size(216, 173);
-            this.listBoxInfo.TabIndex = 1;
-            // 
-            // tabPageAds
-            // 
-            this.tabPageAds.Controls.Add(this.checkBoxKillNew);
-            this.tabPageAds.Controls.Add(this.listBoxADs);
-            this.tabPageAds.Controls.Add(this.ServersListBox);
-            this.tabPageAds.Controls.Add(this.buttonAdd);
-            this.tabPageAds.Controls.Add(this.AddButton);
-            this.tabPageAds.Controls.Add(this.buttonDel);
-            this.tabPageAds.Controls.Add(this.DeleteButton);
-            this.tabPageAds.Controls.Add(this.panel2);
-            this.tabPageAds.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAds.Name = "tabPageAds";
-            this.tabPageAds.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAds.Size = new System.Drawing.Size(225, 216);
-            this.tabPageAds.TabIndex = 1;
-            this.tabPageAds.Text = "屏蔽广告";
-            this.tabPageAds.UseVisualStyleBackColor = true;
             // 
             // checkBoxKillNew
             // 
             this.checkBoxKillNew.AutoSize = true;
             this.checkBoxKillNew.Checked = true;
             this.checkBoxKillNew.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxKillNew.Location = new System.Drawing.Point(10, 189);
+            this.checkBoxKillNew.Location = new System.Drawing.Point(20, 297);
+            this.checkBoxKillNew.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxKillNew.Name = "checkBoxKillNew";
-            this.checkBoxKillNew.Size = new System.Drawing.Size(72, 16);
-            this.checkBoxKillNew.TabIndex = 21;
+            this.checkBoxKillNew.Size = new System.Drawing.Size(106, 22);
+            this.checkBoxKillNew.TabIndex = 13;
             this.checkBoxKillNew.Text = "屏蔽广告";
             this.checkBoxKillNew.UseVisualStyleBackColor = true;
-            // 
-            // listBoxADs
-            // 
-            this.listBoxADs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBoxADs.Font = new System.Drawing.Font("宋体", 11F);
-            this.listBoxADs.FormattingEnabled = true;
-            this.listBoxADs.ItemHeight = 15;
-            this.listBoxADs.Location = new System.Drawing.Point(8, 8);
-            this.listBoxADs.Name = "listBoxADs";
-            this.listBoxADs.Size = new System.Drawing.Size(208, 167);
-            this.listBoxADs.TabIndex = 22;
             // 
             // ServersListBox
             // 
             this.ServersListBox.FormattingEnabled = true;
-            this.ServersListBox.ItemHeight = 12;
-            this.ServersListBox.Location = new System.Drawing.Point(9, 8);
+            this.ServersListBox.ItemHeight = 18;
+            this.ServersListBox.Location = new System.Drawing.Point(18, 28);
+            this.ServersListBox.Margin = new System.Windows.Forms.Padding(4);
             this.ServersListBox.Name = "ServersListBox";
-            this.ServersListBox.Size = new System.Drawing.Size(208, 16);
-            this.ServersListBox.TabIndex = 16;
+            this.ServersListBox.Size = new System.Drawing.Size(310, 22);
+            this.ServersListBox.TabIndex = 5;
             this.ServersListBox.Visible = false;
+            this.ServersListBox.SelectedIndexChanged += new System.EventHandler(this.ServersListBox_SelectedIndexChanged);
             // 
-            // buttonAdd
+            // button1
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(82, 185);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(65, 23);
-            this.buttonAdd.TabIndex = 17;
-            this.buttonAdd.Text = "添加";
-            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.button1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button1.Location = new System.Drawing.Point(648, 342);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 44);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "退出";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Quit_Click);
             // 
-            // AddButton
+            // buttonRefresh
             // 
-            this.AddButton.Location = new System.Drawing.Point(9, 30);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(65, 23);
-            this.AddButton.TabIndex = 18;
-            this.AddButton.Text = "添加";
-            this.AddButton.UseVisualStyleBackColor = true;
-            this.AddButton.Visible = false;
+            this.buttonRefresh.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonRefresh.Location = new System.Drawing.Point(215, 342);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(112, 44);
+            this.buttonRefresh.TabIndex = 1;
+            this.buttonRefresh.Text = "刷新数据";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(153, 185);
+            this.buttonDel.Location = new System.Drawing.Point(234, 291);
+            this.buttonDel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDel.Name = "buttonDel";
-            this.buttonDel.Size = new System.Drawing.Size(63, 23);
-            this.buttonDel.TabIndex = 19;
+            this.buttonDel.Size = new System.Drawing.Size(94, 34);
+            this.buttonDel.TabIndex = 7;
             this.buttonDel.Text = "删除";
             this.buttonDel.UseVisualStyleBackColor = true;
+            this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
-            // DeleteButton
+            // buttonAdd
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(80, 30);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(65, 23);
-            this.DeleteButton.TabIndex = 20;
-            this.DeleteButton.Text = "删除";
-            this.DeleteButton.UseVisualStyleBackColor = true;
-            this.DeleteButton.Visible = false;
+            this.buttonAdd.Location = new System.Drawing.Point(128, 291);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(98, 34);
+            this.buttonAdd.TabIndex = 6;
+            this.buttonAdd.Text = "添加";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // panel2
+            // listBoxADs
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.panel2.AutoSize = true;
-            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.Location = new System.Drawing.Point(186, 164);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(0, 0);
-            this.panel2.TabIndex = 15;
+            this.listBoxADs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listBoxADs.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listBoxADs.FormattingEnabled = true;
+            this.listBoxADs.ItemHeight = 18;
+            this.listBoxADs.Location = new System.Drawing.Point(16, 28);
+            this.listBoxADs.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxADs.Name = "listBoxADs";
+            this.listBoxADs.Size = new System.Drawing.Size(311, 254);
+            this.listBoxADs.TabIndex = 14;
+            // 
+            // comboBoxServers
+            // 
+            this.comboBoxServers.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBoxServers.FormattingEnabled = true;
+            this.comboBoxServers.Location = new System.Drawing.Point(16, 347);
+            this.comboBoxServers.Name = "comboBoxServers";
+            this.comboBoxServers.Size = new System.Drawing.Size(193, 32);
+            this.comboBoxServers.TabIndex = 15;
+            this.comboBoxServers.SelectedIndexChanged += new System.EventHandler(this.comboBoxServers_SelectedIndexChanged);
             // 
             // ConfigForm
             // 
             this.AcceptButton = this.OKButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(547, 266);
-            this.Controls.Add(this.ServerGroupBox);
-            this.Controls.Add(this.tabControl1);
+            this.ClientSize = new System.Drawing.Size(776, 400);
+            this.Controls.Add(this.comboBoxServers);
+            this.Controls.Add(this.checkBoxKillNew);
+            this.Controls.Add(this.listBoxADs);
+            this.Controls.Add(this.ServersListBox);
+            this.Controls.Add(this.buttonRefresh);
+            this.Controls.Add(this.buttonAdd);
+            this.Controls.Add(this.AddButton);
+            this.Controls.Add(this.buttonDel);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.OKButton);
+            this.Controls.Add(this.ServerGroupBox);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfigForm";
@@ -657,10 +656,6 @@ namespace Shadowsocks.View
             this.tableLayoutPanel1.PerformLayout();
             this.ServerGroupBox.ResumeLayout(false);
             this.ServerGroupBox.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPageInfo.ResumeLayout(false);
-            this.tabPageAds.ResumeLayout(false);
-            this.tabPageAds.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -679,50 +674,49 @@ namespace Shadowsocks.View
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox EncryptionSelect;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ContextMenu contextMenu1;
+        private System.Windows.Forms.MenuItem enableItem;
         private System.Windows.Forms.MenuItem aboutItem;
         private System.Windows.Forms.MenuItem menuItem3;
         private System.Windows.Forms.MenuItem quitItem;
+        private System.Windows.Forms.MenuItem ConfigItem;
         private System.Windows.Forms.MenuItem editPACFileItem;
+        private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.GroupBox ServerGroupBox;
+        private System.Windows.Forms.ListBox ServersListBox;
+        private System.Windows.Forms.MenuItem ServersItem;
+        private System.Windows.Forms.MenuItem SeperatorItem;
+        private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.TextBox RemarksTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.MenuItem QRCodeItem;
         private System.Windows.Forms.MenuItem ShowLogItem;
+        private System.Windows.Forms.MenuItem ShareOverLANItem;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox checkBoxEnable;
         public System.Windows.Forms.TextBox ProxyPortTextBox;
+        private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.MenuItem menuItem5;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem menuItem6;
+        private System.Windows.Forms.CheckBox checkBoxKillNew;
+        private System.Windows.Forms.Button buttonDel;
+        private System.Windows.Forms.Button buttonAdd;
+        public System.Windows.Forms.ListBox listBoxADs;
         private System.Windows.Forms.MenuItem menuItem2;
         private System.Windows.Forms.MenuItem menuItemAutoCheckUpdate;
         private System.Windows.Forms.MenuItem menuItemStartCheckUpdate;
+        private System.Windows.Forms.MenuItem menuItem7;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.MenuItem menuItemBase64;
         public System.Windows.Forms.CheckBox checkBoxAutoHide;
         public System.Windows.Forms.CheckBox checkBoxAutoRun;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPageInfo;
-        private System.Windows.Forms.TabPage tabPageAds;
-        private System.Windows.Forms.CheckBox checkBoxKillNew;
-        public System.Windows.Forms.ListBox listBoxADs;
-        private System.Windows.Forms.ListBox ServersListBox;
-        private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button AddButton;
-        private System.Windows.Forms.Button buttonDel;
-        private System.Windows.Forms.Button DeleteButton;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button buttonRefresh;
-        private System.Windows.Forms.Button buttonApply;
-        public System.Windows.Forms.ListBox listBoxInfo;
-        private System.Windows.Forms.MenuItem ServersItem;
-        private System.Windows.Forms.MenuItem SeperatorItem;
-        private System.Windows.Forms.MenuItem ConfigItem;
-        private System.Windows.Forms.MenuItem menuItem6;
-        private System.Windows.Forms.MenuItem menuItem7;
-        private System.Windows.Forms.MenuItem menuItem1;
-        private System.Windows.Forms.MenuItem menuItemBase64;
-        private System.Windows.Forms.MenuItem menuItem4;
-        private System.Windows.Forms.MenuItem enableItem;
+        private System.Windows.Forms.ComboBox comboBoxServers;
     }
 }
 
