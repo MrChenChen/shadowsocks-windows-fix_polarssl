@@ -20,7 +20,8 @@ namespace Shadowsocks.Model
         public bool autohide;
         public bool autorun;
         public bool autoupdate;
-        public string passworduri = "https://ishadow.info";
+        const string MAINURI = "http://abc.ishadow.online/index.html";
+        public string passworduri = MAINURI;
 
         public List<string> ads;
 
@@ -57,7 +58,7 @@ namespace Shadowsocks.Model
                 config.isDefault = false;
                 if (config.passworduri == "" || !config.passworduri.StartsWith("http"))
                 {
-                    config.passworduri = "http://www.ishadowsocks.mobi/";
+                    config.passworduri = MAINURI;
                 }
                 return config;
             }
@@ -81,15 +82,6 @@ namespace Shadowsocks.Model
 
         public static void Save(Configuration config)
         {
-            if (config.index >= config.configs.Count)
-            {
-                config.index = config.configs.Count - 1;
-            }
-            if (config.index < 0)
-            {
-                config.index = 0;
-            }
-            config.isDefault = false;
             try
             {
                 using (StreamWriter sw = new StreamWriter(File.Open(CONFIG_FILE, FileMode.Create)))

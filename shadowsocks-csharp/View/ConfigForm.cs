@@ -72,7 +72,7 @@ namespace Shadowsocks.View
                 tempAutoCheckUpdate = menuItemAutoCheckUpdate.Checked;
             }
 
- 
+
             if (!File.Exists("CreateLinkFile.dll"))
             {
                 File.WriteAllBytes("CreateLinkFile.dll", Properties.Resources.CreateLinkFile);
@@ -160,7 +160,7 @@ namespace Shadowsocks.View
                 };
                 Configuration.CheckServer(server);
                 _modifiedConfiguration.configs[_oldSelectedIndex] = server;
-
+                _modifiedConfiguration.index = comboBoxServers.SelectedIndex;
                 return true;
             }
             catch (FormatException)
@@ -212,7 +212,7 @@ namespace Shadowsocks.View
             _modifiedConfiguration = controller.GetConfiguration();
             LoadConfiguration(_modifiedConfiguration);
             _oldSelectedIndex = _modifiedConfiguration.index;
-            ServersListBox.SelectedIndex = _modifiedConfiguration.index;
+            ServersListBox.SelectedIndex = _modifiedConfiguration.index >= ServersListBox.Items.Count ? 0 : _modifiedConfiguration.index;
             LoadSelectedServer();
 
             UpdateServersMenu();
@@ -561,9 +561,9 @@ namespace Shadowsocks.View
 
                     m_ListServer = list;
 
-                    comboBoxServers.SelectedIndex = 0;
+                    comboBoxServers.SelectedIndex = _modifiedConfiguration.index;
 
-                    AutoSetPassword(list[0]);
+                    AutoSetPassword(list[_modifiedConfiguration.index]);
                 };
             }
 
@@ -858,6 +858,11 @@ namespace Shadowsocks.View
 
 
             });
+        }
+
+        private void linkLabelLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.wtfpl.net/txt/COPYING/");
         }
     }
 

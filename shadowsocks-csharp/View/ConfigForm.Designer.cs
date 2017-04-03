@@ -84,6 +84,7 @@
             this.listBoxADs = new System.Windows.Forms.ListBox();
             this.comboBoxServers = new System.Windows.Forms.ComboBox();
             this.buttonWantjr = new System.Windows.Forms.Button();
+            this.linkLabelLicense = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -633,6 +634,17 @@
             this.buttonWantjr.Visible = false;
             this.buttonWantjr.Click += new System.EventHandler(this.buttonWantjr_Click);
             // 
+            // linkLabelLicense
+            // 
+            this.linkLabelLicense.AutoSize = true;
+            this.linkLabelLicense.Location = new System.Drawing.Point(424, 355);
+            this.linkLabelLicense.Name = "linkLabelLicense";
+            this.linkLabelLicense.Size = new System.Drawing.Size(71, 18);
+            this.linkLabelLicense.TabIndex = 17;
+            this.linkLabelLicense.TabStop = true;
+            this.linkLabelLicense.Text = "License";
+            this.linkLabelLicense.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLicense_LinkClicked);
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.OKButton;
@@ -640,6 +652,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(776, 400);
+            this.Controls.Add(this.linkLabelLicense);
             this.Controls.Add(this.comboBoxServers);
             this.Controls.Add(this.checkBoxKillNew);
             this.Controls.Add(this.listBoxADs);
@@ -731,8 +744,9 @@
         private System.Windows.Forms.MenuItem menuItemBase64;
         public System.Windows.Forms.CheckBox checkBoxAutoHide;
         public System.Windows.Forms.CheckBox checkBoxAutoRun;
-        private System.Windows.Forms.ComboBox comboBoxServers;
         private System.Windows.Forms.Button buttonWantjr;
+        private System.Windows.Forms.LinkLabel linkLabelLicense;
+        public System.Windows.Forms.ComboBox comboBoxServers;
     }
 }
 
