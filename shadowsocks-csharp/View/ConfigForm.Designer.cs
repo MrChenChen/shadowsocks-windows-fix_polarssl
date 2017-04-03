@@ -83,6 +83,7 @@
             this.buttonAdd = new System.Windows.Forms.Button();
             this.listBoxADs = new System.Windows.Forms.ListBox();
             this.comboBoxServers = new System.Windows.Forms.ComboBox();
+            this.buttonWantjr = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -611,6 +612,7 @@
             // 
             // comboBoxServers
             // 
+            this.comboBoxServers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxServers.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBoxServers.FormattingEnabled = true;
             this.comboBoxServers.Location = new System.Drawing.Point(16, 347);
@@ -618,6 +620,18 @@
             this.comboBoxServers.Size = new System.Drawing.Size(193, 32);
             this.comboBoxServers.TabIndex = 15;
             this.comboBoxServers.SelectedIndexChanged += new System.EventHandler(this.comboBoxServers_SelectedIndexChanged);
+            // 
+            // buttonWantjr
+            // 
+            this.buttonWantjr.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonWantjr.Location = new System.Drawing.Point(234, 342);
+            this.buttonWantjr.Name = "buttonWantjr";
+            this.buttonWantjr.Size = new System.Drawing.Size(112, 44);
+            this.buttonWantjr.TabIndex = 16;
+            this.buttonWantjr.Text = "Wantjr";
+            this.buttonWantjr.UseVisualStyleBackColor = true;
+            this.buttonWantjr.Visible = false;
+            this.buttonWantjr.Click += new System.EventHandler(this.buttonWantjr_Click);
             // 
             // ConfigForm
             // 
@@ -640,6 +654,7 @@
             this.Controls.Add(this.ServerGroupBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.buttonWantjr);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -717,6 +732,7 @@
         public System.Windows.Forms.CheckBox checkBoxAutoHide;
         public System.Windows.Forms.CheckBox checkBoxAutoRun;
         private System.Windows.Forms.ComboBox comboBoxServers;
+        private System.Windows.Forms.Button buttonWantjr;
     }
 }
 

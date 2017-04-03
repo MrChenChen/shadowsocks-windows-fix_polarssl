@@ -16,7 +16,7 @@ namespace Shadowsocks
 {
     static class GetPassWord
     {
-        public static string mUri = "https://ishadow.info";
+        public static string mUri = "http://abc.ishadow.online/#free";
 
         public static void GetPassWordFromNet()
         {
@@ -27,7 +27,7 @@ namespace Shadowsocks
 
             http.DownloadStringCompleted += http_DownloadStringCompleted;
 
-            http.DownloadStringAsync(new Uri(m_mainform._modifiedConfiguration.passworduri));
+            http.DownloadStringAsync(new Uri(mUri));
 
         }
 

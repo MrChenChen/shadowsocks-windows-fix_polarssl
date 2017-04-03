@@ -72,17 +72,13 @@ namespace Shadowsocks.View
                 tempAutoCheckUpdate = menuItemAutoCheckUpdate.Checked;
             }
 
+ 
+            if (!File.Exists("CreateLinkFile.dll"))
+            {
+                File.WriteAllBytes("CreateLinkFile.dll", Properties.Resources.CreateLinkFile);
+            }
 
-            //if (tempAutoCheckUpdate)
-            //CheckUpdate();
 
-
-            //if (!File.Exists("CreateLinkFile.dll"))
-            //{
-            //    File.WriteAllBytes("CreateLinkFile.dll", Properties.Resources.CreateLinkFile);
-            //}
-
-            GetPassWorsFunc();
         }
 
         private void LoadTrayIcon()
@@ -565,6 +561,8 @@ namespace Shadowsocks.View
 
                     m_ListServer = list;
 
+                    comboBoxServers.SelectedIndex = 0;
+
                     AutoSetPassword(list[0]);
                 };
             }
@@ -624,9 +622,22 @@ namespace Shadowsocks.View
 
             int s = DateTime.Now.Second;    //获取当前时间的秒部分
 
-
-
-
+            if (h == 0 && m == 0 && s == 0)
+            {
+                GetPassWorsFunc();
+            }
+            else if (h == 6 && m == 0 && s == 0)
+            {
+                GetPassWorsFunc();
+            }
+            else if (h == 12 && m == 0 && s == 0)
+            {
+                GetPassWorsFunc();
+            }
+            else if (h == 18 && m == 0 && s == 0)
+            {
+                GetPassWorsFunc();
+            }
         }
 
         private void menuItem1_Click(object sender, EventArgs e)
@@ -790,6 +801,63 @@ namespace Shadowsocks.View
             {
                 AutoSetPassword(m_ListServer[comboBoxServers.SelectedIndex]);
             }
+        }
+
+        private void ApplyServer(Server server)
+        {
+            IPTextBox.Text = server.server;
+            ServerPortTextBox.Text = server.server_port.ToString();
+            PasswordTextBox.Text = server.password;
+            ProxyPortTextBox.Text = server.local_port.ToString();
+            EncryptionSelect.Text = server.method ?? "aes-256-cfb";
+            RemarksTextBox.Text = server.remarks;
+
+            OKButton_Click(null, null);
+        }
+
+        private void buttonWantjr_Click(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                WebClient http = new WebClient()
+                {
+                    Encoding = Encoding.UTF8
+                };
+
+                var html = http.DownloadString(new Uri("http://www.wantjr.com/#"));
+
+                if (html.Length < 100) return;
+
+                var mainkey = html.Split(new string[] { "24小时变动一次" }, StringSplitOptions.RemoveEmptyEntries)[1].
+                 Split(new string[] { "登录用户" }, StringSplitOptions.RemoveEmptyEntries)[0];
+
+
+                if (mainkey.Contains("正常"))
+                {
+                    var t = mainkey.Split(new string[] { "text\">", "</p></a>" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    var list = new List<string>(t);
+
+                    list.RemoveAll(p => p.Contains("class="));
+
+                    if (list.Count == 4)
+                    {
+                        Server server = new Server();
+                        server.server = list[0].Split(':')[1].Trim();
+                        server.server_port = int.Parse(list[1].Split(':')[1]);
+                        server.password = list[2].Split(':')[1].Trim();
+                        server.method = list[3].Split(':')[1].Trim();
+
+                        ApplyServer(server);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("状态：未找到 ‘正常’ ");
+                }
+
+
+            });
         }
     }
 
