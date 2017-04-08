@@ -186,13 +186,9 @@ namespace Shadowsocks.View
                 ProxyPortTextBox.Text = server.local_port.ToString();
                 EncryptionSelect.Text = server.method ?? "aes-256-cfb";
                 RemarksTextBox.Text = server.remarks;
-                ServerGroupBox.Visible = true;
 
             }
-            else
-            {
-                ServerGroupBox.Visible = false;
-            }
+
         }
 
         private void LoadConfiguration(Configuration configuration)
@@ -212,7 +208,7 @@ namespace Shadowsocks.View
             _modifiedConfiguration = controller.GetConfiguration();
             LoadConfiguration(_modifiedConfiguration);
             _oldSelectedIndex = _modifiedConfiguration.index;
-            ServersListBox.SelectedIndex = _modifiedConfiguration.index >= ServersListBox.Items.Count ? 0 : _modifiedConfiguration.index;
+            ServersListBox.SelectedIndex = _modifiedConfiguration.index >= ServersListBox.Items.Count ? -1 : _modifiedConfiguration.index;
             LoadSelectedServer();
 
             UpdateServersMenu();
@@ -561,9 +557,10 @@ namespace Shadowsocks.View
 
                     m_ListServer = list;
 
-                    comboBoxServers.SelectedIndex = _modifiedConfiguration.index;
 
-                    AutoSetPassword(list[_modifiedConfiguration.index]);
+                    AutoSetPassword(list[Math.Max(0, _modifiedConfiguration.index)]);
+
+                    comboBoxServers.SelectedIndex = Math.Max(0, _modifiedConfiguration.index);
                 };
             }
 
@@ -585,7 +582,6 @@ namespace Shadowsocks.View
                 ProxyPortTextBox.Text = server.local_port.ToString();
                 EncryptionSelect.Text = server.method ?? "aes-256-cfb";
                 RemarksTextBox.Text = server.remarks;
-                ServerGroupBox.Visible = true;
 
                 OKButton_Click(null, null);
             }
