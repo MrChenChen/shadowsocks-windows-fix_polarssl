@@ -5,107 +5,57 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Microsoft.Win32;
 using Shadowsocks.Controller;
 using Shadowsocks.Model;
 using Shadowsocks.Properties;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Win32;
-using System.Runtime.InteropServices;
-using System.IO;
-using System.Net;
 
 namespace Shadowsocks.View
 {
-
     public partial class ConfigForm : Form
     {
-
         private ShadowsocksController controller;
 
-        private List<string> m_list_ads = new List<string>();
-        private List<Server> m_ListServer = new List<Server>();
-        private VersionChecker mUpdater = new VersionChecker();
-
         // this is a copy of configuration that we are working on
-        public Configuration _modifiedConfiguration;
-        private int _oldSelectedIndex = -1;
-        private bool _isFirstRun;
-
-        private Settings m_settings;
+        private Configuration _modifiedConfiguration;
+        private int _lastSelectedIndex = -1;
 
         public ConfigForm(ShadowsocksController controller)
         {
+            this.Font = System.Drawing.SystemFonts.MessageBoxFont;
             InitializeComponent();
 
-            GetPassWord.m_mainform = this;
+            // a dirty hack
+            this.ServersListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PerformLayout();
 
-            LoadTrayIcon();
-
-            m_settings = Properties.Settings.Default;
-
-            notifyIcon1.ContextMenu = contextMenu1;
-
-            mUpdater.mainForm = this;
+            UpdateTexts();
+            this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
 
             this.controller = controller;
-            controller.EnableStatusChanged += controller_EnableStatusChanged;
             controller.ConfigChanged += controller_ConfigChanged;
-            controller.PACFileReadyToOpen += controller_PACFileReadyToOpen;
-            controller.ShareOverLANStatusChanged += controller_ShareOverLANStatusChanged;
-
 
             LoadCurrentConfiguration();
-
-            GetPassWord.contextmenu1 = contextMenu1;
-
-
-            if (_modifiedConfiguration.ads != null)
-            {
-                foreach (var item in _modifiedConfiguration.ads)
-                {
-                    listBoxADs.Items.Add(item);
-                }
-                checkBoxAutoRun.Checked = _modifiedConfiguration.autorun;
-                checkBoxAutoHide.Checked = _modifiedConfiguration.autohide;
-                menuItemAutoCheckUpdate.Checked = _modifiedConfiguration.autoupdate;
-                tempAutoCheckUpdate = menuItemAutoCheckUpdate.Checked;
-            }
-
-
-            if (!File.Exists("CreateLinkFile.dll"))
-            {
-                File.WriteAllBytes("CreateLinkFile.dll", Properties.Resources.CreateLinkFile);
-            }
-
-
         }
 
-        private void LoadTrayIcon()
+        private void UpdateTexts()
         {
-            int dpi;
-            Graphics graphics = this.CreateGraphics();
-            dpi = (int)graphics.DpiX;
-            graphics.Dispose();
-            Bitmap icon = null;
-            if (dpi < 97)
-            {
-                // dpi = 96;
-                icon = Resources.ss16;
-            }
-            else if (dpi < 121)
-            {
-                // dpi = 120;
-                icon = Resources.ss20;
-            }
-            else
-            {
-                icon = Resources.ss24;
-            }
-            notifyIcon1.Icon = Icon.FromHandle(icon.GetHicon());
-            notifyIcon1.Visible = true;
-            //this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
-
+            AddButton.Text = I18N.GetString("&Add");
+            DeleteButton.Text = I18N.GetString("&Delete");
+            DuplicateButton.Text = I18N.GetString("Dupli&cate");
+            IPLabel.Text = I18N.GetString("Server Addr");
+            ServerPortLabel.Text = I18N.GetString("Server Port");
+            PasswordLabel.Text = I18N.GetString("Password");
+            EncryptionLabel.Text = I18N.GetString("Encryption");
+            ProxyPortLabel.Text = I18N.GetString("Proxy Port");
+            RemarksLabel.Text = I18N.GetString("Remarks");
+            TimeoutLabel.Text = I18N.GetString("Timeout(Sec)");
+            ServerGroupBox.Text = I18N.GetString("Server");
+            OKButton.Text = I18N.GetString("OK");
+            MyCancelButton.Text = I18N.GetString("Cancel");
+            MoveUpButton.Text = I18N.GetString("Move &Up");
+            MoveDownButton.Text = I18N.GetString("Move D&own");
+            this.Text = I18N.GetString("Edit Servers");
         }
 
         private void controller_ConfigChanged(object sender, EventArgs e)
@@ -113,59 +63,51 @@ namespace Shadowsocks.View
             LoadCurrentConfiguration();
         }
 
-        private void controller_EnableStatusChanged(object sender, EventArgs e)
-        {
-            enableItem.Checked = controller.GetConfiguration().enabled;
-        }
-
-        void controller_ShareOverLANStatusChanged(object sender, EventArgs e)
-        {
-            ShareOverLANItem.Checked = controller.GetConfiguration().shareOverLan;
-        }
-
-        void controller_PACFileReadyToOpen(object sender, ShadowsocksController.PathEventArgs e)
-        {
-            string argument = @"/select, " + e.Path;
-
-            System.Diagnostics.Process.Start("explorer.exe", argument);
-        }
-
-
-
         private void ShowWindow()
         {
             this.Opacity = 1;
             this.Show();
-            this.Activate();
-            OKButton.Focus();
-
+            IPTextBox.Focus();
         }
 
         private bool SaveOldSelectedServer()
         {
             try
             {
-                if (_oldSelectedIndex == -1 || _oldSelectedIndex >= _modifiedConfiguration.configs.Count)
+                if (_lastSelectedIndex == -1 || _lastSelectedIndex >= _modifiedConfiguration.configs.Count)
                 {
                     return true;
                 }
-                Server server = new Server
+                Server server = new Server();
+
+                if (Uri.CheckHostName(server.server = IPTextBox.Text.Trim()) == UriHostNameType.Unknown)
                 {
-                    server = IPTextBox.Text,
-                    server_port = int.Parse(ServerPortTextBox.Text),
-                    password = PasswordTextBox.Text,
-                    local_port = int.Parse(ProxyPortTextBox.Text),
-                    method = EncryptionSelect.Text,
-                    remarks = RemarksTextBox.Text
-                };
+                    MessageBox.Show(I18N.GetString("Invalid server address"));
+                    IPTextBox.Focus();
+                    return false;
+                }
+                if (!int.TryParse(ServerPortTextBox.Text, out server.server_port))
+                {
+                    MessageBox.Show(I18N.GetString("Illegal port number format"));
+                    ServerPortTextBox.Focus();
+                    return false;
+                }
+                server.password = PasswordTextBox.Text;
+                server.method = EncryptionSelect.Text;
+                server.remarks = RemarksTextBox.Text;
+                if (!int.TryParse(TimeoutTextBox.Text, out server.timeout))
+                {
+                    MessageBox.Show(I18N.GetString("Illegal timeout format"));
+                    TimeoutTextBox.Focus();
+                    return false;
+                }
+                int localPort = int.Parse(ProxyPortTextBox.Text);
                 Configuration.CheckServer(server);
-                _modifiedConfiguration.configs[_oldSelectedIndex] = server;
-                _modifiedConfiguration.index = comboBoxServers.SelectedIndex;
+                Configuration.CheckLocalPort(localPort);
+                _modifiedConfiguration.configs[_lastSelectedIndex] = server;
+                _modifiedConfiguration.localPort = localPort;
+
                 return true;
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("无效的端口号");
             }
             catch (Exception ex)
             {
@@ -183,12 +125,11 @@ namespace Shadowsocks.View
                 IPTextBox.Text = server.server;
                 ServerPortTextBox.Text = server.server_port.ToString();
                 PasswordTextBox.Text = server.password;
-                ProxyPortTextBox.Text = server.local_port.ToString();
+                ProxyPortTextBox.Text = _modifiedConfiguration.localPort.ToString();
                 EncryptionSelect.Text = server.method ?? "aes-256-cfb";
                 RemarksTextBox.Text = server.remarks;
-
+                TimeoutTextBox.Text = server.timeout.ToString();
             }
-
         }
 
         private void LoadConfiguration(Configuration configuration)
@@ -196,177 +137,58 @@ namespace Shadowsocks.View
             ServersListBox.Items.Clear();
             foreach (Server server in _modifiedConfiguration.configs)
             {
-                ServersListBox.Items.Add(string.IsNullOrEmpty(server.server) ? "New server" : string.IsNullOrEmpty(server.remarks) ? server.server + ":" + server.server_port : server.server + ":" + server.server_port + " (" + server.remarks + ")");
+                ServersListBox.Items.Add(server.FriendlyName());
             }
-
-            m_list_ads = _modifiedConfiguration.ads;
-
         }
 
         private void LoadCurrentConfiguration()
         {
-            _modifiedConfiguration = controller.GetConfiguration();
+            _modifiedConfiguration = controller.GetConfigurationCopy();
             LoadConfiguration(_modifiedConfiguration);
-            _oldSelectedIndex = _modifiedConfiguration.index;
-            ServersListBox.SelectedIndex = _modifiedConfiguration.index >= ServersListBox.Items.Count ? -1 : _modifiedConfiguration.index;
+            _lastSelectedIndex = _modifiedConfiguration.index;
+            if (_lastSelectedIndex < 0 || _lastSelectedIndex >= ServersListBox.Items.Count)
+            {
+                _lastSelectedIndex = 0;
+            }
+            ServersListBox.SelectedIndex = _lastSelectedIndex;
+            UpdateMoveUpAndDownButton();
             LoadSelectedServer();
-
-            UpdateServersMenu();
-            enableItem.Checked = _modifiedConfiguration.enabled;
-            checkBoxEnable.Checked = _modifiedConfiguration.enabled;
-            ShareOverLANItem.Checked = _modifiedConfiguration.shareOverLan;
         }
-
-        private void UpdateServersMenu()
-        {
-            var items = ServersItem.MenuItems;
-
-            items.Clear();
-
-            Configuration configuration = controller.GetConfiguration();
-            for (int i = 0; i < configuration.configs.Count; i++)
-            {
-                Server server = configuration.configs[i];
-                MenuItem item = new MenuItem(string.IsNullOrEmpty(server.remarks) ? server.server + ":" + server.server_port : server.server + ":" + server.server_port + " (" + server.remarks + ")");
-                item.Tag = i;
-                item.Click += AServerItem_Click;
-                items.Add(item);
-            }
-            items.Add(SeperatorItem);
-            items.Add(ConfigItem);
-
-            if (configuration.index >= 0 && configuration.index < configuration.configs.Count)
-            {
-                items[configuration.index].Checked = true;
-            }
-        }
-
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
-            //获取开机启动设置
 
-
-            GetPassWord.m_mainform = this;
-
-            CheckForIllegalCrossThreadCalls = false;
-
-            if (!controller.GetConfiguration().isDefault)
-            {
-                //this.Opacity = 0;
-                //BeginInvoke(new MethodInvoker(delegate
-                //{
-                //    this.Hide();
-                //}));
-            }
-            else
-            {
-                _isFirstRun = true;
-            }
-            //updateChecker.CheckUpdate();
-
-            GetPassWorsFunc();
-
-            //timer1.Start();
-
-            controller.ToggleEnable(true);
-
-            KillTecNews();
         }
 
-        public const int WM_CLOSE = 0x10;
-
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        // 调用一个窗口的窗口函数，将一条消息发给那个窗口。除非消息处理完毕，否则该函数不会返回。SendMessageBynum， SendMessageByString是该函数的“类型安全”声明形式
-        [DllImport("user32", EntryPoint = "SendMessage", SetLastError = false,
-        CharSet = CharSet.Auto, ExactSpelling = false,
-        CallingConvention = CallingConvention.StdCall)]
-        private static extern int SendMessage(
-            IntPtr hWnd,
-            int wMsg,
-            int wParam,
-            int lParam
-        );
-
-        public const int BM_CLICK = 0xF5;
-
-        private const int WM_QUERYENDSESSION = 0x11;
-
-        const int EnabelAutoRun_Return = 2016;
-
-        const int DisabelAutoRun_Return = 2017;
-
-        protected override void DefWndProc(ref System.Windows.Forms.Message m)
+        private void ConfigForm_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (m.Msg)
+            // Sometimes the users may hit enter key by mistake, and the form will close without saving entries.
+
+            if (e.KeyCode == Keys.Enter)
             {
-                case WM_QUERYENDSESSION:
-                    //string message = string.Format("收到自己消息的参数:{0},{1}", m.WParam, m.LParam);
-                    //处理启动 函数MessageBox.Show(message);//显示一个消息框
-                    Close();
-                    controller.Stop();
-                    notifyIcon1.Dispose();
-                    Environment.Exit(0);
-                    break;
-                case EnabelAutoRun_Return:
-
-                    break;
-                case DisabelAutoRun_Return:
-
-                    break;
-                default:
-                    base.DefWndProc(ref m);//一定要调用基类函数，以便系统处理其它消息。
-                    break;
-            }
-        }
-
-        void KillTecNews()
-        {
-            IntPtr temp = IntPtr.Zero;
-
-            new Thread(new ThreadStart(() =>
-            {
-
-                while (true)
+                Server server = controller.GetCurrentServer();
+                if (!SaveOldSelectedServer())
                 {
-                    if (checkBoxKillNew.Checked)
-                    {
-                        foreach (string item in listBoxADs.Items)
-                        {
-                            CloedTecAds(item);
-                        }
-                    }
-
-                    timer1_Tick(null, null);
-
-                    Thread.Sleep(500);
+                    return;
                 }
-
-
-            }))
-            { IsBackground = true }.Start();
-
-        }
-
-
-        void CloedTecAds(string title)
-        {
-            var temp = FindWindow(null, title);
-
-            if (temp != null)
-            {
-                SendMessage(temp, WM_CLOSE, 0, 0);
+                if (_modifiedConfiguration.configs.Count == 0)
+                {
+                    MessageBox.Show(I18N.GetString("Please add at least one server"));
+                    return;
+                }
+                controller.SaveServers(_modifiedConfiguration.configs, _modifiedConfiguration.localPort);
+                controller.SelectServerIndex(_modifiedConfiguration.configs.IndexOf(server));
             }
+
         }
-
-
 
         private void ServersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_oldSelectedIndex == ServersListBox.SelectedIndex)
+            if (!ServersListBox.CanSelect)
+            {
+                return;
+            }
+            if (_lastSelectedIndex == ServersListBox.SelectedIndex)
             {
                 // we are moving back to oldSelectedIndex or doing a force move
                 return;
@@ -374,11 +196,16 @@ namespace Shadowsocks.View
             if (!SaveOldSelectedServer())
             {
                 // why this won't cause stack overflow?
-                ServersListBox.SelectedIndex = _oldSelectedIndex;
+                ServersListBox.SelectedIndex = _lastSelectedIndex;
                 return;
             }
+            if (_lastSelectedIndex >= 0)
+            {
+                ServersListBox.Items[_lastSelectedIndex] = _modifiedConfiguration.configs[_lastSelectedIndex].FriendlyName();
+            }
+            UpdateMoveUpAndDownButton();
             LoadSelectedServer();
-            _oldSelectedIndex = ServersListBox.SelectedIndex;
+            _lastSelectedIndex = ServersListBox.SelectedIndex;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -391,122 +218,63 @@ namespace Shadowsocks.View
             _modifiedConfiguration.configs.Add(server);
             LoadConfiguration(_modifiedConfiguration);
             ServersListBox.SelectedIndex = _modifiedConfiguration.configs.Count - 1;
-            _oldSelectedIndex = ServersListBox.SelectedIndex;
+            _lastSelectedIndex = ServersListBox.SelectedIndex;
+        }
+
+        private void DuplicateButton_Click(object sender, EventArgs e)
+        {
+            if (!SaveOldSelectedServer())
+            {
+                return;
+            }
+            Server currServer = _modifiedConfiguration.configs[_lastSelectedIndex];
+            var currIndex = _modifiedConfiguration.configs.IndexOf(currServer);
+            _modifiedConfiguration.configs.Insert(currIndex + 1, currServer);
+            LoadConfiguration(_modifiedConfiguration);
+            ServersListBox.SelectedIndex = currIndex + 1;
+            _lastSelectedIndex = ServersListBox.SelectedIndex;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            _oldSelectedIndex = ServersListBox.SelectedIndex;
-            if (_oldSelectedIndex >= 0 && _oldSelectedIndex < _modifiedConfiguration.configs.Count)
+            _lastSelectedIndex = ServersListBox.SelectedIndex;
+            if (_lastSelectedIndex >= 0 && _lastSelectedIndex < _modifiedConfiguration.configs.Count)
             {
-                _modifiedConfiguration.configs.RemoveAt(_oldSelectedIndex);
+                _modifiedConfiguration.configs.RemoveAt(_lastSelectedIndex);
             }
-            if (_oldSelectedIndex >= _modifiedConfiguration.configs.Count)
+            if (_lastSelectedIndex >= _modifiedConfiguration.configs.Count)
             {
                 // can be -1
-                _oldSelectedIndex = _modifiedConfiguration.configs.Count - 1;
+                _lastSelectedIndex = _modifiedConfiguration.configs.Count - 1;
             }
-            ServersListBox.SelectedIndex = _oldSelectedIndex;
+            ServersListBox.SelectedIndex = _lastSelectedIndex;
             LoadConfiguration(_modifiedConfiguration);
-            ServersListBox.SelectedIndex = _oldSelectedIndex;
+            ServersListBox.SelectedIndex = _lastSelectedIndex;
             LoadSelectedServer();
         }
 
-        private void Config_Click(object sender, EventArgs e)
+        private void OKButton_Click(object sender, EventArgs e)
         {
-            ShowWindow();
-        }
-
-        private void Quit_Click(object sender, EventArgs e)
-        {
-            Close();
-            controller.Stop();
-            notifyIcon1.Dispose();
-            Environment.Exit(0);
-        }
-
-        private void ShowFirstTimeBalloon()
-        {
-            if (_isFirstRun)
-            {
-                notifyIcon1.BalloonTipTitle = "Shadowsocks is here";
-                notifyIcon1.BalloonTipText = "You can turn on/off Shadowsocks in the context menu";
-                notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-                notifyIcon1.ShowBalloonTip(0);
-                _isFirstRun = false;
-            }
-        }
-
-        public void OKButton_Click(object sender, EventArgs e)
-        {
-
             if (!SaveOldSelectedServer())
             {
                 return;
             }
             if (_modifiedConfiguration.configs.Count == 0)
             {
-                MessageBox.Show("请至少添加一个服务器！");
+                MessageBox.Show(I18N.GetString("Please add at least one server"));
                 return;
             }
-
-
-
-            controller.SaveServers(_modifiedConfiguration.configs, this);
-
-            if (checkBoxAutoHide.Checked)
-            {
-                Hide();
-            }
-
-            //ShowFirstTimeBalloon();
+            controller.SaveServers(_modifiedConfiguration.configs, _modifiedConfiguration.localPort);
+            // SelectedIndex remains valid
+            // We handled this in event handlers, e.g. Add/DeleteButton, SelectedIndexChanged
+            // and move operations
+            controller.SelectServerIndex(ServersListBox.SelectedIndex);
+            this.Close();
         }
 
-
-
-        private void ConfigForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
-            controller.Stop();
-
-        }
-
-        private void AboutItem_Click(object sender, EventArgs e)
-        {
-            //Process.Start("https://github.com/clowwindy/shadowsocks-csharp");
-
-            MessageBox.Show("Created by clowwindy\r\nModified by MrChenChen", "ShadowSocks " + VersionChecker.GetCurrentVersionNumber());
-        }
-
-
-
-        private void EnableItem_Click(object sender, EventArgs e)
-        {
-            enableItem.Checked = !enableItem.Checked;
-            checkBoxEnable.Checked = enableItem.Checked;
-        }
-
-        private void ShareOverLANItem_Click(object sender, EventArgs e)
-        {
-            ShareOverLANItem.Checked = !ShareOverLANItem.Checked;
-            controller.ToggleShareOverLAN(ShareOverLANItem.Checked);
-        }
-
-        private void EditPACFileItem_Click(object sender, EventArgs e)
-        {
-            controller.TouchPACFile();
-        }
-
-        private void AServerItem_Click(object sender, EventArgs e)
-        {
-            MenuItem item = (MenuItem)sender;
-            controller.SelectServerIndex((int)item.Tag);
-        }
-
-        private void ShowLogItem_Click(object sender, EventArgs e)
-        {
-            string argument = Logging.LogFile;
-
-            System.Diagnostics.Process.Start("notepad.exe", argument);
+            this.Close();
         }
 
         private void ConfigForm_Shown(object sender, EventArgs e)
@@ -514,352 +282,85 @@ namespace Shadowsocks.View
             IPTextBox.Focus();
         }
 
-        private void QRCodeItem_Click(object sender, EventArgs e)
+        private void ConfigForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            QRCodeForm qrCodeForm = new QRCodeForm(controller.GetQRCodeForCurrentServer());
-            qrCodeForm.Icon = this.Icon;
-            qrCodeForm.Show();
+            controller.ConfigChanged -= controller_ConfigChanged;
         }
 
-        //切换 Enable 开启梭影
-        private void checkBoxEnable_CheckedChanged(object sender, EventArgs e)
+        private void MoveConfigItem(int step)
         {
-            controller.ToggleEnable(checkBoxEnable.Checked);
-            enableItem.Checked = checkBoxEnable.Checked;
+            int index = ServersListBox.SelectedIndex;
+            Server server = _modifiedConfiguration.configs[index];
+            object item = ServersListBox.Items[index];
 
+            _modifiedConfiguration.configs.Remove(server);
+            _modifiedConfiguration.configs.Insert(index + step, server);
+            _modifiedConfiguration.index += step;
+
+            ServersListBox.BeginUpdate();
+            ServersListBox.Enabled = false;
+            _lastSelectedIndex = index + step;
+            ServersListBox.Items.Remove(item);
+            ServersListBox.Items.Insert(index + step, item);
+            ServersListBox.Enabled = true;
+            ServersListBox.SelectedIndex = index + step;
+            ServersListBox.EndUpdate();
+
+            UpdateMoveUpAndDownButton();
         }
 
-
-
-
-        void GetPassWorsFunc()
+        private void UpdateMoveUpAndDownButton()
         {
-            m_ListServer.Clear();
-
-            if (GetPassWord.mAction == null)
+            if (ServersListBox.SelectedIndex == 0)
             {
-                GetPassWord.mAction = list =>
-                {
-                    if (list == null)
-                    {
-                        buttonRefresh.Enabled = true;
-                        return;
-                    }
-
-                    comboBoxServers.Items.Clear();
-
-                    foreach (var item in list)
-                    {
-                        comboBoxServers.Items.Add(item.server);
-                    }
-
-                    buttonRefresh.Enabled = true;
-
-                    m_ListServer = list;
-
-
-                    AutoSetPassword(list[Math.Max(0, _modifiedConfiguration.index)]);
-
-                    comboBoxServers.SelectedIndex = Math.Max(0, _modifiedConfiguration.index);
-                };
-            }
-
-            GetPassWord.GetPassWordFromNet();
-
-            buttonRefresh.Enabled = false;
-
-        }
-
-
-        public void AutoSetPassword(Server server)
-        {
-            if (server != null)
-            {
-
-                IPTextBox.Text = server.server;
-                ServerPortTextBox.Text = server.server_port.ToString();
-                PasswordTextBox.Text = server.password;
-                ProxyPortTextBox.Text = server.local_port.ToString();
-                EncryptionSelect.Text = server.method ?? "aes-256-cfb";
-                RemarksTextBox.Text = server.remarks;
-
-                OKButton_Click(null, null);
+                MoveUpButton.Enabled = false;
             }
             else
             {
-                MessageBox.Show("获取网络密码错误！");
+                MoveUpButton.Enabled = true;
+            }
+            if (ServersListBox.SelectedIndex == ServersListBox.Items.Count - 1)
+            {
+                MoveDownButton.Enabled = false;
+            }
+            else
+            {
+                MoveDownButton.Enabled = true;
             }
         }
 
-
-        private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void MoveUpButton_Click(object sender, EventArgs e)
         {
-            controller.SaveServers(_modifiedConfiguration.configs, this);
-
-            e.Cancel = true;
-
-            Hide();
-        }
-
-
-
-
-        private void buttonRefresh_Click(object sender, EventArgs e)
-        {
-            GetPassWorsFunc();
-        }
-
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            int h = DateTime.Now.Hour;      //获取当前时间的小时部分
-
-            int m = DateTime.Now.Minute;    //获取当前时间的分钟部分
-
-            int s = DateTime.Now.Second;    //获取当前时间的秒部分
-
-            if (h == 0 && m == 0 && s == 0)
+            if (!SaveOldSelectedServer())
             {
-                GetPassWorsFunc();
+                return;
             }
-            else if (h == 6 && m == 0 && s == 0)
+            if (ServersListBox.SelectedIndex > 0)
             {
-                GetPassWorsFunc();
-            }
-            else if (h == 12 && m == 0 && s == 0)
-            {
-                GetPassWorsFunc();
-            }
-            else if (h == 18 && m == 0 && s == 0)
-            {
-                GetPassWorsFunc();
+                MoveConfigItem(-1);  // -1 means move backward
             }
         }
 
-        private void menuItem1_Click(object sender, EventArgs e)
+        private void MoveDownButton_Click(object sender, EventArgs e)
         {
-
-            var p = System.Diagnostics.Process.GetProcesses();
-
-            foreach (var item in p)
+            if (!SaveOldSelectedServer())
             {
-                if (item.ProcessName.Contains("ThunderPlat"))
-                {
-                    item.Kill();
-                }
-
+                return;
             }
-
-            if (checkBoxAutoHide.Checked)
+            if (ServersListBox.SelectedIndex < ServersListBox.Items.Count - 1)
             {
-                Hide();
-            }
-
-        }
-
-        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ShowWindow();
+                MoveConfigItem(+1);  // +1 means move forward
             }
         }
 
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void buttonAcquireNet_Click(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                ShowWindow();
-            }
-        }
-
-        //添加广告
-        private void buttonAdd_Click(object sender, EventArgs e)
-        {
-            var str = Microsoft.VisualBasic.Interaction.InputBox("请输入要屏蔽的标题：", "添加要屏蔽的弹出广告", "");
-
-            if (str != string.Empty && str != "")
-            {
-                listBoxADs.Items.Add(str);
-
-                var temp = "";
-                foreach (string item in listBoxADs.Items)
-                {
-                    temp += item + ";";
-                }
-            }
-
-        }
-
-
-        //删除广告
-        private void buttonDel_Click(object sender, EventArgs e)
-        {
-            if (listBoxADs.SelectedIndex >= 0)
-            {
-                listBoxADs.Items.RemoveAt(listBoxADs.SelectedIndex);
-
-
-                var temp = "";
-                foreach (string item in listBoxADs.Items)
-                {
-                    temp += item + ";";
-                }
-
-            }
-        }
-
-
-
-
-        /// <summary>
-        /// 手动更新
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void menuItemStartCheckUpdate_Click(object sender, EventArgs e)
-        {
-            mUpdater.VersionCheck();
-        }
-
-        public bool tempAutoCheckUpdate = true;
-
-        private void menuItemAutoCheckUpdate_Click(object sender, EventArgs e)
-        {
-            menuItemAutoCheckUpdate.Checked = !menuItemAutoCheckUpdate.Checked;
-
-            tempAutoCheckUpdate = menuItemAutoCheckUpdate.Checked;
-
-            controller.SaveServers(_modifiedConfiguration.configs, this);
-        }
-
-        private void menuItem7_Click(object sender, EventArgs e)
-        {
-            string path = System.Windows.Forms.Application.ExecutablePath;
-
-            FileInfo file = new FileInfo(path);
-
-            Process.Start("explorer.exe", file.DirectoryName);
-
-        }
-
-        [DllImport("CreateLinkFile.dll", EntryPoint = "CreateLinkFile", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public extern static bool CreateLinkFile(
-            StringBuilder szStartAppPath,
-            StringBuilder szAddCmdLine,
-            StringBuilder szDestLnkPath,
-            StringBuilder szIconPath2);
-
-
-        private void checkBoxAutoRun_Click(object sender, EventArgs e)
-        {
-            //设置开机启动
-
-            var startup = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + Path.GetFileName(Application.ExecutablePath) + ".lnk";
-
-            try
-            {
-                if (checkBoxAutoRun.Checked)
-                {
-                    CreateLinkFile(
-                        new StringBuilder(Application.ExecutablePath),
-                        new StringBuilder(""),
-                        new StringBuilder(startup),
-                        new StringBuilder(Application.ExecutablePath)
-                        );
-
-                }
-                else
-                {
-                    if (File.Exists(startup))
-                    {
-                        File.Delete(startup);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                checkBoxAutoRun.Checked = !checkBoxAutoRun.Checked;
-                MessageBox.Show(ex.Message);
-            }
-
-        }
-
-        private void menuItemBase64_Click(object sender, EventArgs e)
-        {
-            Base64Form f = new Base64Form();
-            f.Show();
-        }
-
-        private void comboBoxServers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxServers.SelectedIndex > 0 && m_ListServer.Count > comboBoxServers.SelectedIndex)
-            {
-                AutoSetPassword(m_ListServer[comboBoxServers.SelectedIndex]);
-            }
-        }
-
-        private void ApplyServer(Server server)
-        {
-            IPTextBox.Text = server.server;
-            ServerPortTextBox.Text = server.server_port.ToString();
-            PasswordTextBox.Text = server.password;
-            ProxyPortTextBox.Text = server.local_port.ToString();
-            EncryptionSelect.Text = server.method ?? "aes-256-cfb";
-            RemarksTextBox.Text = server.remarks;
-
-            OKButton_Click(null, null);
-        }
-
-        private void buttonWantjr_Click(object sender, EventArgs e)
-        {
-            Task.Factory.StartNew(() =>
-            {
-                WebClient http = new WebClient()
-                {
-                    Encoding = Encoding.UTF8
-                };
-
-                var html = http.DownloadString(new Uri("http://www.wantjr.com/#"));
-
-                if (html.Length < 100) return;
-
-                var mainkey = html.Split(new string[] { "24小时变动一次" }, StringSplitOptions.RemoveEmptyEntries)[1].
-                 Split(new string[] { "登录用户" }, StringSplitOptions.RemoveEmptyEntries)[0];
-
-
-                if (mainkey.Contains("正常"))
-                {
-                    var t = mainkey.Split(new string[] { "text\">", "</p></a>" }, StringSplitOptions.RemoveEmptyEntries);
-
-                    var list = new List<string>(t);
-
-                    list.RemoveAll(p => p.Contains("class="));
-
-                    if (list.Count == 4)
-                    {
-                        Server server = new Server();
-                        server.server = list[0].Split(':')[1].Trim();
-                        server.server_port = int.Parse(list[1].Split(':')[1]);
-                        server.password = list[2].Split(':')[1].Trim();
-                        server.method = list[3].Split(':')[1].Trim();
-
-                        ApplyServer(server);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("状态：未找到 ‘正常’ ");
-                }
-
-
-            });
-        }
-
-        private void linkLabelLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://www.wtfpl.net/txt/COPYING/");
+            GetInfoFromNet.NetForm.ShowForm(
+                IPTextBox,
+                ServerPortTextBox,
+                PasswordTextBox,
+                EncryptionSelect,
+                OKButton);
         }
     }
-
 }
