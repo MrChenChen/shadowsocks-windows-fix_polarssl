@@ -52,7 +52,7 @@ namespace Shadowsocks.View
             TimeoutLabel.Text = I18N.GetString("Timeout(Sec)");
             ServerGroupBox.Text = I18N.GetString("Server");
             OKButton.Text = I18N.GetString("OK");
-            MyCancelButton.Text = I18N.GetString("Cancel");
+            MyExitButton.Text = I18N.GetString("Cancel");
             MoveUpButton.Text = I18N.GetString("Move &Up");
             MoveDownButton.Text = I18N.GetString("Move D&own");
             this.Text = I18N.GetString("Edit Servers");
@@ -274,7 +274,7 @@ namespace Shadowsocks.View
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Program.MenuController.ExitApp();
         }
 
         private void ConfigForm_Shown(object sender, EventArgs e)
@@ -361,6 +361,14 @@ namespace Shadowsocks.View
                 PasswordTextBox,
                 EncryptionSelect,
                 OKButton);
+        }
+
+        private void checkBoxEnable_Click(object sender, EventArgs e)
+        {
+            if (checkBoxEnable.Checked)
+                controller.Start();
+            else
+                controller.Stop();
         }
     }
 }

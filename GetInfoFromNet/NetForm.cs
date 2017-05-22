@@ -28,17 +28,22 @@ namespace GetInfoFromNet
 
         public Button OkBtn;
 
+        static NetForm nf = null;
 
         public static void ShowForm(TextBox server, TextBox port, TextBox password, ComboBox encrypt, Button ok)
         {
-            NetForm nf = new NetForm()
+            if (nf == null)
             {
-                ServerTxt = server,
-                PortTxt = port,
-                PasswordTxt = password,
-                EncryptionSelect = encrypt,
-                OkBtn = ok
-            };
+                nf = new NetForm()
+                {
+                    ServerTxt = server,
+                    PortTxt = port,
+                    PasswordTxt = password,
+                    EncryptionSelect = encrypt,
+                    OkBtn = ok
+                };
+            }
+
             nf.Show();
         }
 
@@ -189,7 +194,12 @@ namespace GetInfoFromNet
 
         }
 
+        private void NetForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
 
+            Hide();
+        }
     }
 
     internal class Server

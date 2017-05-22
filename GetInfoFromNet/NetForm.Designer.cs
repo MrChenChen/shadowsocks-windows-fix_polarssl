@@ -106,6 +106,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NetForm";
             this.Text = "NetForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NetForm_FormClosing);
             this.Load += new System.EventHandler(this.NetForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

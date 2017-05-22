@@ -43,7 +43,7 @@
             this.TimeoutTextBox = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.OKButton = new System.Windows.Forms.Button();
-            this.MyCancelButton = new System.Windows.Forms.Button();
+            this.MyExitButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.ServerGroupBox = new System.Windows.Forms.GroupBox();
@@ -55,10 +55,11 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.ProxyPortTextBox = new System.Windows.Forms.TextBox();
             this.ProxyPortLabel = new System.Windows.Forms.Label();
+            this.checkBoxEnable = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.DuplicateButton = new System.Windows.Forms.Button();
             this.buttonAcquireNet = new System.Windows.Forms.Button();
+            this.DuplicateButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -90,7 +91,7 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 32);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -106,7 +107,7 @@
             // 
             this.RemarksTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.RemarksTextBox.Location = new System.Drawing.Point(132, 150);
-            this.RemarksTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RemarksTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.RemarksTextBox.MaxLength = 32;
             this.RemarksTextBox.Name = "RemarksTextBox";
             this.RemarksTextBox.Size = new System.Drawing.Size(238, 28);
@@ -161,7 +162,7 @@
             // 
             this.IPTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.IPTextBox.Location = new System.Drawing.Point(132, 8);
-            this.IPTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.IPTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.IPTextBox.MaxLength = 512;
             this.IPTextBox.Name = "IPTextBox";
             this.IPTextBox.Size = new System.Drawing.Size(238, 28);
@@ -172,7 +173,7 @@
             // 
             this.ServerPortTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ServerPortTextBox.Location = new System.Drawing.Point(132, 44);
-            this.ServerPortTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ServerPortTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ServerPortTextBox.MaxLength = 10;
             this.ServerPortTextBox.Name = "ServerPortTextBox";
             this.ServerPortTextBox.Size = new System.Drawing.Size(238, 28);
@@ -183,7 +184,7 @@
             // 
             this.PasswordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.PasswordTextBox.Location = new System.Drawing.Point(132, 80);
-            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PasswordTextBox.MaxLength = 256;
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.Size = new System.Drawing.Size(238, 28);
@@ -230,7 +231,7 @@
             "aes-256-gcm",
             "chacha20-ietf-poly1305"});
             this.EncryptionSelect.Location = new System.Drawing.Point(132, 116);
-            this.EncryptionSelect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.EncryptionSelect.Margin = new System.Windows.Forms.Padding(4);
             this.EncryptionSelect.Name = "EncryptionSelect";
             this.EncryptionSelect.Size = new System.Drawing.Size(238, 26);
             this.EncryptionSelect.TabIndex = 3;
@@ -251,7 +252,7 @@
             // 
             this.TimeoutTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.TimeoutTextBox.Location = new System.Drawing.Point(132, 186);
-            this.TimeoutTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TimeoutTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.TimeoutTextBox.MaxLength = 5;
             this.TimeoutTextBox.Name = "TimeoutTextBox";
             this.TimeoutTextBox.Size = new System.Drawing.Size(238, 28);
@@ -263,16 +264,18 @@
             this.panel2.AutoSize = true;
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel2.Location = new System.Drawing.Point(310, 280);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(0, 0);
             this.panel2.TabIndex = 1;
             // 
             // OKButton
             // 
+            this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.OKButton.Location = new System.Drawing.Point(4, 4);
+            this.OKButton.Location = new System.Drawing.Point(214, 4);
             this.OKButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(112, 35);
@@ -281,18 +284,20 @@
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
-            // MyCancelButton
+            // MyExitButton
             // 
-            this.MyCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.MyCancelButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MyCancelButton.Location = new System.Drawing.Point(124, 4);
-            this.MyCancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 0, 0);
-            this.MyCancelButton.Name = "MyCancelButton";
-            this.MyCancelButton.Size = new System.Drawing.Size(112, 35);
-            this.MyCancelButton.TabIndex = 13;
-            this.MyCancelButton.Text = "Cancel";
-            this.MyCancelButton.UseVisualStyleBackColor = true;
-            this.MyCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.MyExitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MyExitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.MyExitButton.Location = new System.Drawing.Point(98, 4);
+            this.MyExitButton.Margin = new System.Windows.Forms.Padding(4, 4, 0, 0);
+            this.MyExitButton.Name = "MyExitButton";
+            this.MyExitButton.Size = new System.Drawing.Size(112, 35);
+            this.MyExitButton.TabIndex = 13;
+            this.MyExitButton.Text = "Exit";
+            this.MyExitButton.UseVisualStyleBackColor = true;
+            this.MyExitButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // DeleteButton
             // 
@@ -326,7 +331,7 @@
             this.ServerGroupBox.Location = new System.Drawing.Point(266, 0);
             this.ServerGroupBox.Margin = new System.Windows.Forms.Padding(18, 0, 0, 0);
             this.ServerGroupBox.Name = "ServerGroupBox";
-            this.ServerGroupBox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ServerGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.ServerGroupBox.Size = new System.Drawing.Size(394, 279);
             this.ServerGroupBox.TabIndex = 0;
             this.ServerGroupBox.TabStop = false;
@@ -423,13 +428,9 @@
             this.tableLayoutPanel5.Location = new System.Drawing.Point(370, 279);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel5.Padding = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(290, 94);
             this.tableLayoutPanel5.TabIndex = 9;
             // 
@@ -437,7 +438,7 @@
             // 
             this.ProxyPortTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ProxyPortTextBox.Location = new System.Drawing.Point(114, 33);
-            this.ProxyPortTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ProxyPortTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ProxyPortTextBox.MaxLength = 10;
             this.ProxyPortTextBox.Name = "ProxyPortTextBox";
             this.ProxyPortTextBox.Size = new System.Drawing.Size(168, 28);
@@ -455,23 +456,40 @@
             this.ProxyPortLabel.TabIndex = 3;
             this.ProxyPortLabel.Text = "Proxy Port";
             // 
+            // checkBoxEnable
+            // 
+            this.checkBoxEnable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxEnable.AutoSize = true;
+            this.checkBoxEnable.Checked = true;
+            this.checkBoxEnable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxEnable.Location = new System.Drawing.Point(3, 3);
+            this.checkBoxEnable.Name = "checkBoxEnable";
+            this.checkBoxEnable.Size = new System.Drawing.Size(88, 33);
+            this.checkBoxEnable.TabIndex = 7;
+            this.checkBoxEnable.Text = "Enable";
+            this.checkBoxEnable.UseVisualStyleBackColor = true;
+            this.checkBoxEnable.Click += new System.EventHandler(this.checkBoxEnable_Click);
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.AutoSize = true;
             this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel3.Controls.Add(this.MyCancelButton, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.OKButton, 0, 0);
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.Controls.Add(this.MyExitButton, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.OKButton, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.checkBoxEnable, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(424, 377);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(330, 377);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 0, 4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(236, 39);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(330, 39);
             this.tableLayoutPanel3.TabIndex = 8;
             // 
             // tableLayoutPanel4
@@ -495,18 +513,6 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(248, 94);
             this.tableLayoutPanel4.TabIndex = 8;
             // 
-            // DuplicateButton
-            // 
-            this.DuplicateButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.DuplicateButton.Location = new System.Drawing.Point(0, 56);
-            this.DuplicateButton.Margin = new System.Windows.Forms.Padding(0, 9, 4, 4);
-            this.DuplicateButton.Name = "DuplicateButton";
-            this.DuplicateButton.Size = new System.Drawing.Size(120, 34);
-            this.DuplicateButton.TabIndex = 10;
-            this.DuplicateButton.Text = "Dupli&cate";
-            this.DuplicateButton.UseVisualStyleBackColor = true;
-            this.DuplicateButton.Click += new System.EventHandler(this.DuplicateButton_Click);
-            // 
             // buttonAcquireNet
             // 
             this.buttonAcquireNet.Dock = System.Windows.Forms.DockStyle.Right;
@@ -519,6 +525,18 @@
             this.buttonAcquireNet.UseVisualStyleBackColor = true;
             this.buttonAcquireNet.Click += new System.EventHandler(this.buttonAcquireNet_Click);
             // 
+            // DuplicateButton
+            // 
+            this.DuplicateButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.DuplicateButton.Location = new System.Drawing.Point(0, 56);
+            this.DuplicateButton.Margin = new System.Windows.Forms.Padding(0, 9, 4, 4);
+            this.DuplicateButton.Name = "DuplicateButton";
+            this.DuplicateButton.Size = new System.Drawing.Size(120, 34);
+            this.DuplicateButton.TabIndex = 10;
+            this.DuplicateButton.Text = "Dupli&cate";
+            this.DuplicateButton.UseVisualStyleBackColor = true;
+            this.DuplicateButton.Click += new System.EventHandler(this.DuplicateButton_Click);
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.OKButton;
@@ -526,12 +544,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.CancelButton = this.MyCancelButton;
+            this.CancelButton = this.MyExitButton;
             this.ClientSize = new System.Drawing.Size(861, 550);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfigForm";
@@ -552,6 +570,7 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -571,7 +590,7 @@
         private System.Windows.Forms.ComboBox EncryptionSelect;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button OKButton;
-        private System.Windows.Forms.Button MyCancelButton;
+        private System.Windows.Forms.Button MyExitButton;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.GroupBox ServerGroupBox;
@@ -591,6 +610,7 @@
         private System.Windows.Forms.Label TimeoutLabel;
         private System.Windows.Forms.TextBox TimeoutTextBox;
         private System.Windows.Forms.Button buttonAcquireNet;
+        private System.Windows.Forms.CheckBox checkBoxEnable;
     }
 }
 

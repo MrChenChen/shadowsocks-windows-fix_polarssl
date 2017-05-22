@@ -99,7 +99,7 @@ namespace Shadowsocks.View
                 _isFirstRun = true;
                 ShowConfigForm();
             }
-            else if(config.autoCheckUpdate)
+            else if (config.autoCheckUpdate)
             {
                 _isStartupChecking = true;
                 updateChecker.CheckUpdate(config, 3000);
@@ -213,9 +213,9 @@ namespace Shadowsocks.View
                         {
                             Color flyBlue = Color.FromArgb(25, 125, 191);
                             // Multiply with flyBlue
-                            int red   = color.R * flyBlue.R / 255;
-                            int green = color.G * flyBlue.G / 255; 
-                            int blue  = color.B * flyBlue.B / 255;
+                            int red = color.R * flyBlue.R / 255;
+                            int green = color.G * flyBlue.G / 255;
+                            int blue = color.B * flyBlue.B / 255;
                             iconCopy.SetPixel(x, y, Color.FromArgb(color.A, red, green, blue));
                         }
                     }
@@ -324,7 +324,8 @@ namespace Shadowsocks.View
             ShareOverLANItem.Checked = controller.GetConfigurationCopy().shareOverLan;
         }
 
-        void controller_VerboseLoggingStatusChanged(object sender, EventArgs e) {
+        void controller_VerboseLoggingStatusChanged(object sender, EventArgs e)
+        {
             VerboseLoggingToggleItem.Checked = controller.GetConfigurationCopy().isVerboseLogging;
         }
 
@@ -433,7 +434,7 @@ namespace Shadowsocks.View
             }
 
             // user wants a seperator item between strategy and servers menugroup
-            items.Add( i++, new MenuItem("-") );
+            items.Add(i++, new MenuItem("-"));
 
             int strategyCount = i;
             Configuration configuration = controller.GetConfigurationCopy();
@@ -556,9 +557,16 @@ namespace Shadowsocks.View
 
         private void Quit_Click(object sender, EventArgs e)
         {
+            ExitApp();
+        }
+
+        public void ExitApp()
+        {
+            configForm?.Hide();
             controller.Stop();
             _notifyIcon.Visible = false;
-            Application.Exit();
+            _notifyIcon.Dispose();
+            Environment.Exit(0);
         }
 
         private void CheckUpdateForFirstRun()
@@ -584,9 +592,13 @@ namespace Shadowsocks.View
 
         private void notifyIcon1_Click(object sender, MouseEventArgs e)
         {
-            if ( e.Button == MouseButtons.Middle )
+            if (e.Button == MouseButtons.Middle)
             {
                 ShowLogForm();
+            }
+            else
+            {
+                ShowConfigForm();
             }
         }
 
@@ -646,9 +658,10 @@ namespace Shadowsocks.View
             controller.SelectStrategy((string)item.Tag);
         }
 
-        private void VerboseLoggingToggleItem_Click( object sender, EventArgs e ) {
-            VerboseLoggingToggleItem.Checked = ! VerboseLoggingToggleItem.Checked;
-            controller.ToggleVerboseLogging( VerboseLoggingToggleItem.Checked );
+        private void VerboseLoggingToggleItem_Click(object sender, EventArgs e)
+        {
+            VerboseLoggingToggleItem.Checked = !VerboseLoggingToggleItem.Checked;
+            controller.ToggleVerboseLogging(VerboseLoggingToggleItem.Checked);
         }
 
         private void StatisticsConfigItem_Click(object sender, EventArgs e)
