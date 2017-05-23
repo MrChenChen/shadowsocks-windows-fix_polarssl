@@ -596,7 +596,7 @@ namespace Shadowsocks.View
             {
                 ShowLogForm();
             }
-            else
+            else if (e.Button == MouseButtons.Left)
             {
                 ShowConfigForm();
             }
