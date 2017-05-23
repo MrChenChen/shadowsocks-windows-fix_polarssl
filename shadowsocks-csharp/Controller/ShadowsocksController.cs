@@ -14,6 +14,8 @@ using Shadowsocks.Model;
 using Shadowsocks.Properties;
 using Shadowsocks.Util;
 using System.Linq;
+using System.Runtime.InteropServices;
+using Microsoft.Win32;
 
 namespace Shadowsocks.Controller
 {
@@ -231,7 +233,8 @@ namespace Shadowsocks.Controller
         {
             _config.isVerboseLogging = enabled;
             SaveConfig(_config);
-            if ( VerboseLoggingStatusChanged != null ) {
+            if (VerboseLoggingStatusChanged != null)
+            {
                 VerboseLoggingStatusChanged(this, new EventArgs());
             }
         }
@@ -269,6 +272,7 @@ namespace Shadowsocks.Controller
             {
                 SystemProxy.Update(_config, true, null);
             }
+
             Encryption.RNG.Close();
         }
 
@@ -301,7 +305,7 @@ namespace Shadowsocks.Controller
             string tag = string.Empty;
             string parts = $"{server.method}:{server.password}@{server.server}:{server.server_port}";
             string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(parts));
-            if(!server.remarks.IsNullOrEmpty())
+            if (!server.remarks.IsNullOrEmpty())
             {
                 tag = $"#{HttpUtility.UrlEncode(server.remarks, Encoding.UTF8)}";
             }
@@ -633,7 +637,7 @@ namespace Shadowsocks.Controller
             {
                 previous = trafficPerSecondQueue.Last();
                 current = new TrafficPerSecond();
-                
+
                 current.inboundCounter = InboundCounter;
                 current.outboundCounter = OutboundCounter;
                 current.inboundIncreasement = current.inboundCounter - previous.inboundCounter;
@@ -652,4 +656,7 @@ namespace Shadowsocks.Controller
         #endregion
 
     }
+
+
+
 }
