@@ -89,6 +89,7 @@ namespace Shadowsocks.Controller
 
         public void Start()
         {
+            stopped = false;
             Reload();
         }
 

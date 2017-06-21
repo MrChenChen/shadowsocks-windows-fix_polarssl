@@ -91,7 +91,7 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 21);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
             this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -251,21 +251,19 @@
             this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel2.AutoSize = true;
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.Location = new System.Drawing.Point(207, 187);
+            this.panel2.Location = new System.Drawing.Point(155, 187);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(0, 0);
             this.panel2.TabIndex = 1;
             // 
             // OKButton
             // 
-            this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.OKButton.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.OKButton.Location = new System.Drawing.Point(67, 3);
             this.OKButton.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(75, 55);
+            this.OKButton.Size = new System.Drawing.Size(75, 25);
             this.OKButton.TabIndex = 12;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
@@ -273,14 +271,12 @@
             // 
             // MyExitButton
             // 
-            this.MyExitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.MyExitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.MyExitButton.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MyExitButton.Location = new System.Drawing.Point(148, 3);
             this.MyExitButton.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
             this.MyExitButton.Name = "MyExitButton";
-            this.MyExitButton.Size = new System.Drawing.Size(75, 55);
+            this.MyExitButton.Size = new System.Drawing.Size(75, 25);
             this.MyExitButton.TabIndex = 13;
             this.MyExitButton.Text = "Exit";
             this.MyExitButton.UseVisualStyleBackColor = true;
@@ -355,7 +351,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(444, 333);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(444, 303);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
             // tableLayoutPanel6
@@ -414,7 +410,7 @@
             this.tableLayoutPanel5.Location = new System.Drawing.Point(248, 205);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tableLayoutPanel5.Padding = new System.Windows.Forms.Padding(3);
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(196, 64);
@@ -457,21 +453,19 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(223, 58);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(223, 28);
             this.tableLayoutPanel3.TabIndex = 8;
             // 
             // checkBoxEnable
             // 
-            this.checkBoxEnable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxEnable.AutoSize = true;
             this.checkBoxEnable.Checked = true;
             this.checkBoxEnable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxEnable.Location = new System.Drawing.Point(2, 2);
-            this.checkBoxEnable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxEnable.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.checkBoxEnable.Location = new System.Drawing.Point(2, 10);
+            this.checkBoxEnable.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnable.Name = "checkBoxEnable";
-            this.checkBoxEnable.Size = new System.Drawing.Size(60, 54);
+            this.checkBoxEnable.Size = new System.Drawing.Size(60, 16);
             this.checkBoxEnable.TabIndex = 7;
             this.checkBoxEnable.Text = "Enable";
             this.checkBoxEnable.UseVisualStyleBackColor = true;
@@ -530,7 +524,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.MyExitButton;
-            this.ClientSize = new System.Drawing.Size(574, 367);
+            this.ClientSize = new System.Drawing.Size(471, 326);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -539,7 +533,7 @@
             this.Name = "ConfigForm";
             this.Padding = new System.Windows.Forms.Padding(12, 12, 12, 9);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Edit Servers";
+            this.Text = "Shadowsocks 4.0.2";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ConfigForm_FormClosed);
             this.Load += new System.EventHandler(this.ConfigForm_Load);
             this.Shown += new System.EventHandler(this.ConfigForm_Shown);

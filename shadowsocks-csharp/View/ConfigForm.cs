@@ -95,12 +95,14 @@ namespace Shadowsocks.View
                 server.password = PasswordTextBox.Text;
                 server.method = EncryptionSelect.Text;
                 server.remarks = RemarksTextBox.Text;
+                if (TimeoutTextBox.Text == "") TimeoutTextBox.Text = "5";
                 if (!int.TryParse(TimeoutTextBox.Text, out server.timeout))
                 {
                     MessageBox.Show(I18N.GetString("Illegal timeout format"));
                     TimeoutTextBox.Focus();
                     return false;
                 }
+                if (ProxyPortTextBox.Text == "") ProxyPortTextBox.Text = "1080";
                 int localPort = int.Parse(ProxyPortTextBox.Text);
                 Configuration.CheckServer(server);
                 Configuration.CheckLocalPort(localPort);
@@ -366,9 +368,14 @@ namespace Shadowsocks.View
         private void checkBoxEnable_Click(object sender, EventArgs e)
         {
             if (checkBoxEnable.Checked)
+            {
                 controller.Start();
+            }
             else
+            {
                 controller.Stop();
+            }
+
         }
     }
 }

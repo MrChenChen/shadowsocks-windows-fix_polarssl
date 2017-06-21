@@ -43,7 +43,7 @@ namespace GetInfoFromNet
                     OkBtn = ok
                 };
             }
-
+            nf.StartPosition = FormStartPosition.CenterScreen;
             nf.Show();
         }
 
@@ -52,6 +52,8 @@ namespace GetInfoFromNet
             InitializeComponent();
 
             CheckForIllegalCrossThreadCalls = false;
+
+            comboBoxInfos.DrawMode = DrawMode.OwnerDrawFixed;
         }
 
         private void NetForm_Load(object sender, EventArgs e)
@@ -84,7 +86,7 @@ namespace GetInfoFromNet
                 ServerTxt.Text = server.server;
                 PortTxt.Text = server.server_port.ToString();
                 PasswordTxt.Text = server.password;
-                EncryptionSelect.SelectedText = server.method;
+                EncryptionSelect.SelectedIndex = EncryptionSelect.Items.IndexOf(server.method);
                 OkBtn.PerformClick();
 
                 SaveSetting();
@@ -200,6 +202,36 @@ namespace GetInfoFromNet
 
             Hide();
         }
+
+        private void comboBoxInfos_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            if (e.Index >= 0)
+                e.Graphics.DrawString(comboBoxInfos.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
+            System.Diagnostics.Debug.WriteLine(e.State);
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected
+                && e.Index >= 0
+                && (e.State & DrawItemState.Selected) != DrawItemState.ComboBoxEdit)
+                toolTip1.Show(
+                    comboBoxInfos.Items[e.Index].ToString(),
+                    comboBoxInfos,
+                    e.Bounds.X + e.Bounds.Width,
+                    e.Bounds.Y + e.Bounds.Height);
+
+            e.DrawFocusRectangle();
+        }
+
+        private void comboBoxInfos_DropDownClosed(object sender, EventArgs e)
+        {
+            toolTip1.Hide(comboBoxInfos);
+        }
+
+        private void NetForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            toolTip1.Hide(comboBoxInfos);
+        }
+
     }
 
     internal class Server
@@ -211,7 +243,12 @@ namespace GetInfoFromNet
 
         public override string ToString()
         {
-            return server;
+            return
+               "server : " + server + "\r\n" +
+               "server_port : " + server_port + "\r\n" +
+               "password : " + password + "\r\n" +
+               "method : " + method + "\r\n"
+                ;
         }
     }
 
