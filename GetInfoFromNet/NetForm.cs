@@ -153,13 +153,13 @@ namespace GetInfoFromNet
 
             #region Port
             {
-                var result = Regex.Matches(mainkey, "(Port：).{1,20}(</h4>)");
+                var result = Regex.Matches(mainkey, "(Port).{1,20}(</h4>)");
 
                 for (int i = 0; i < len; i++)
                 {
                     var item = result[i].Value;
 
-                    list[i].server_port = int.Parse(item.Split('：')[1].Split('<')[0]);
+                    list[i].server_port = int.Parse(item.Split('<')[0].Replace("Port：", "").Replace("Port:", ""));
 
                 }
 
