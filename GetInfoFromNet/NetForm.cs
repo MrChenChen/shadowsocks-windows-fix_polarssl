@@ -165,13 +165,13 @@ namespace GetInfoFromNet
 
             #region Port
             {
-                var result = Regex.Matches(mainkey, "(Port).{1,20}(</h4>)");
+                var result = Regex.Matches(mainkey, "(Port:<span).+");
 
                 for (int i = 0; i < len; i++)
                 {
                     var item = result[i].Value;
 
-                    list[i].server_port = int.Parse(item.Split('<')[0].Replace("Port：", "").Replace("Port:", ""));
+                    list[i].server_port = int.Parse(item.Split('>')[1]);
 
                 }
 
@@ -180,13 +180,13 @@ namespace GetInfoFromNet
 
             #region Password
             {
-                var result = Regex.Matches(mainkey, "(id=\"pw).{1,20}(</span>)");
+                var result = Regex.Matches(mainkey, "(Password:<span).+");
 
                 for (int i = 0; i < len; i++)
                 {
                     var item = result[i].Value;
 
-                    list[i].password = item.Split('>')[1].Split('<')[0];
+                    list[i].password = item.Split('>')[1];
                 }
             }
             #endregion
