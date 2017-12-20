@@ -1,4 +1,4 @@
-﻿using GetInfoFromNet.Properties;
+using GetInfoFromNet.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -165,14 +165,20 @@ namespace GetInfoFromNet
 
             #region Port
             {
-                var result = Regex.Matches(mainkey, "(Port:<span).+");
+                var result = Regex.Matches(mainkey, "(Port).{1,50}");
 
                 for (int i = 0; i < len; i++)
                 {
                     var item = result[i].Value;
 
-                    list[i].server_port = int.Parse(item.Split('>')[1]);
-
+                    if (item.Split('>')[1].Trim() == "")
+                    {
+                        list[i].server_port = 0;
+                    }
+                    else
+                    {
+                        list[i].server_port = int.Parse(item.Split('>')[1].Trim());
+                    }
                 }
 
             }
@@ -180,13 +186,13 @@ namespace GetInfoFromNet
 
             #region Password
             {
-                var result = Regex.Matches(mainkey, "(Password:<span).+");
+                var result = Regex.Matches(mainkey, "(Password:).{1,50}");
 
                 for (int i = 0; i < len; i++)
                 {
                     var item = result[i].Value;
 
-                    list[i].password = item.Split('>')[1];
+                    list[i].password = item.Split('>')[1].Trim();
                 }
             }
             #endregion
@@ -204,7 +210,7 @@ namespace GetInfoFromNet
             }
             #endregion
 
-            return list;
+            return list.Where(p => p.IsVaild()).ToList();
 
         }
 
@@ -304,6 +310,14 @@ namespace GetInfoFromNet
         public int server_port;
         public string password;
         public string method;
+
+        public bool IsVaild()
+        {
+            return !string.IsNullOrWhiteSpace(server)
+                && !string.IsNullOrWhiteSpace(password)
+                && !string.IsNullOrWhiteSpace(method)
+                && server_port != 0;
+        }
 
         public override string ToString()
         {
