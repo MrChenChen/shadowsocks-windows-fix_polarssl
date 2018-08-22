@@ -5,9 +5,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 
-//using ZXing;
-//using ZXing.Common;
-//using ZXing.QrCode;
+using ZXing;
+using ZXing.Common;
+using ZXing.QrCode;
 
 using Shadowsocks.Controller;
 using Shadowsocks.Model;
@@ -99,7 +99,7 @@ namespace Shadowsocks.View
                 _isFirstRun = true;
                 ShowConfigForm();
             }
-            else if (config.autoCheckUpdate)
+            else if(config.autoCheckUpdate)
             {
                 _isStartupChecking = true;
                 updateChecker.CheckUpdate(config, 3000);
@@ -187,6 +187,10 @@ namespace Shadowsocks.View
                               I18N.GetString("System Proxy On: ") + (global ? I18N.GetString("Global") : I18N.GetString("PAC")) :
                               String.Format(I18N.GetString("Running: Port {0}"), config.localPort))  // this feedback is very important because they need to know Shadowsocks is running
                           + "\n" + serverInfo;
+            if (text.Length > 127)
+            {
+                text = text.Substring(0, 126 - 3) + "...";
+            }
             ViewUtils.SetNotifyIconText(_notifyIcon, text);
         }
 
@@ -213,9 +217,9 @@ namespace Shadowsocks.View
                         {
                             Color flyBlue = Color.FromArgb(25, 125, 191);
                             // Multiply with flyBlue
-                            int red = color.R * flyBlue.R / 255;
-                            int green = color.G * flyBlue.G / 255;
-                            int blue = color.B * flyBlue.B / 255;
+                            int red   = color.R * flyBlue.R / 255;
+                            int green = color.G * flyBlue.G / 255; 
+                            int blue  = color.B * flyBlue.B / 255;
                             iconCopy.SetPixel(x, y, Color.FromArgb(color.A, red, green, blue));
                         }
                     }
@@ -269,7 +273,7 @@ namespace Shadowsocks.View
                     CreateMenuItem("Statistics Config...", StatisticsConfigItem_Click),
                     new MenuItem("-"),
                     CreateMenuItem("Share Server Config...", new EventHandler(this.QRCodeItem_Click)),
-                    //CreateMenuItem("Scan QRCode from Screen...", new EventHandler(this.ScanQRCodeItem_Click)),
+                    CreateMenuItem("Scan QRCode from Screen...", new EventHandler(this.ScanQRCodeItem_Click)),
                     CreateMenuItem("Import URL from Clipboard...", new EventHandler(this.ImportURLItem_Click))
                 }),
                 CreateMenuGroup("PAC ", new MenuItem[] {
@@ -286,7 +290,7 @@ namespace Shadowsocks.View
                 this.proxyItem = CreateMenuItem("Forward Proxy...", new EventHandler(this.proxyItem_Click)),
                 new MenuItem("-"),
                 this.AutoStartupItem = CreateMenuItem("Start on Boot", new EventHandler(this.AutoStartupItem_Click)),
-                this.ShareOverLANItem = CreateMenuItem("Allow Clients from LAN", new EventHandler(this.ShareOverLANItem_Click)),
+                this.ShareOverLANItem = CreateMenuItem("Allow other Devices to connect", new EventHandler(this.ShareOverLANItem_Click)),
                 new MenuItem("-"),
                 this.hotKeyItem = CreateMenuItem("Edit Hotkeys...", new EventHandler(this.hotKeyItem_Click)),
                 CreateMenuGroup("Help", new MenuItem[] {
@@ -324,8 +328,7 @@ namespace Shadowsocks.View
             ShareOverLANItem.Checked = controller.GetConfigurationCopy().shareOverLan;
         }
 
-        void controller_VerboseLoggingStatusChanged(object sender, EventArgs e)
-        {
+        void controller_VerboseLoggingStatusChanged(object sender, EventArgs e) {
             VerboseLoggingToggleItem.Checked = controller.GetConfigurationCopy().isVerboseLogging;
         }
 
@@ -434,7 +437,7 @@ namespace Shadowsocks.View
             }
 
             // user wants a seperator item between strategy and servers menugroup
-            items.Add(i++, new MenuItem("-"));
+            items.Add( i++, new MenuItem("-") );
 
             int strategyCount = i;
             Configuration configuration = controller.GetConfigurationCopy();
@@ -557,15 +560,8 @@ namespace Shadowsocks.View
 
         private void Quit_Click(object sender, EventArgs e)
         {
-            ExitApp();
-        }
-
-        public void ExitApp()
-        {
-            configForm?.Hide();
             controller.Stop();
             _notifyIcon.Visible = false;
-            _notifyIcon.Dispose();
             Environment.Exit(0);
         }
 
@@ -592,13 +588,9 @@ namespace Shadowsocks.View
 
         private void notifyIcon1_Click(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Middle)
+            if ( e.Button == MouseButtons.Middle )
             {
                 ShowLogForm();
-            }
-            else if (e.Button == MouseButtons.Left)
-            {
-                ShowConfigForm();
             }
         }
 
@@ -658,10 +650,9 @@ namespace Shadowsocks.View
             controller.SelectStrategy((string)item.Tag);
         }
 
-        private void VerboseLoggingToggleItem_Click(object sender, EventArgs e)
-        {
-            VerboseLoggingToggleItem.Checked = !VerboseLoggingToggleItem.Checked;
-            controller.ToggleVerboseLogging(VerboseLoggingToggleItem.Checked);
+        private void VerboseLoggingToggleItem_Click( object sender, EventArgs e ) {
+            VerboseLoggingToggleItem.Checked = ! VerboseLoggingToggleItem.Checked;
+            controller.ToggleVerboseLogging( VerboseLoggingToggleItem.Checked );
         }
 
         private void StatisticsConfigItem_Click(object sender, EventArgs e)
@@ -672,95 +663,95 @@ namespace Shadowsocks.View
 
         private void QRCodeItem_Click(object sender, EventArgs e)
         {
-            QRCodeForm qrCodeForm = new QRCodeForm(controller.GetQRCodeForCurrentServer());
+            QRCodeForm qrCodeForm = new QRCodeForm(controller.GetServerURLForCurrentServer());
             //qrCodeForm.Icon = this.Icon;
             // TODO
             qrCodeForm.Show();
         }
 
-        //private void ScanQRCodeItem_Click(object sender, EventArgs e)
-        //{
-        //    foreach (Screen screen in Screen.AllScreens)
-        //    {
-        //        using (Bitmap fullImage = new Bitmap(screen.Bounds.Width,
-        //                                        screen.Bounds.Height))
-        //        {
-        //            using (Graphics g = Graphics.FromImage(fullImage))
-        //            {
-        //                g.CopyFromScreen(screen.Bounds.X,
-        //                                 screen.Bounds.Y,
-        //                                 0, 0,
-        //                                 fullImage.Size,
-        //                                 CopyPixelOperation.SourceCopy);
-        //            }
-        //            int maxTry = 10;
-        //            for (int i = 0; i < maxTry; i++)
-        //            {
-        //                int marginLeft = (int)((double)fullImage.Width * i / 2.5 / maxTry);
-        //                int marginTop = (int)((double)fullImage.Height * i / 2.5 / maxTry);
-        //                Rectangle cropRect = new Rectangle(marginLeft, marginTop, fullImage.Width - marginLeft * 2, fullImage.Height - marginTop * 2);
-        //                Bitmap target = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
+        private void ScanQRCodeItem_Click(object sender, EventArgs e)
+        {
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                using (Bitmap fullImage = new Bitmap(screen.Bounds.Width,
+                                                screen.Bounds.Height))
+                {
+                    using (Graphics g = Graphics.FromImage(fullImage))
+                    {
+                        g.CopyFromScreen(screen.Bounds.X,
+                                         screen.Bounds.Y,
+                                         0, 0,
+                                         fullImage.Size,
+                                         CopyPixelOperation.SourceCopy);
+                    }
+                    int maxTry = 10;
+                    for (int i = 0; i < maxTry; i++)
+                    {
+                        int marginLeft = (int)((double)fullImage.Width * i / 2.5 / maxTry);
+                        int marginTop = (int)((double)fullImage.Height * i / 2.5 / maxTry);
+                        Rectangle cropRect = new Rectangle(marginLeft, marginTop, fullImage.Width - marginLeft * 2, fullImage.Height - marginTop * 2);
+                        Bitmap target = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
 
-        //                double imageScale = (double)screen.Bounds.Width / (double)cropRect.Width;
-        //                using (Graphics g = Graphics.FromImage(target))
-        //                {
-        //                    g.DrawImage(fullImage, new Rectangle(0, 0, target.Width, target.Height),
-        //                                    cropRect,
-        //                                    GraphicsUnit.Pixel);
-        //                }
-        //                var source = new BitmapLuminanceSource(target);
-        //                var bitmap = new BinaryBitmap(new HybridBinarizer(source));
-        //                QRCodeReader reader = new QRCodeReader();
-        //                var result = reader.decode(bitmap);
-        //                if (result != null)
-        //                {
-        //                    var success = controller.AddServerBySSURL(result.Text);
-        //                    QRCodeSplashForm splash = new QRCodeSplashForm();
-        //                    if (success)
-        //                    {
-        //                        splash.FormClosed += splash_FormClosed;
-        //                    }
-        //                    else if (result.Text.StartsWith("http://") || result.Text.StartsWith("https://"))
-        //                    {
-        //                        _urlToOpen = result.Text;
-        //                        splash.FormClosed += openURLFromQRCode;
-        //                    }
-        //                    else
-        //                    {
-        //                        MessageBox.Show(I18N.GetString("Failed to decode QRCode"));
-        //                        return;
-        //                    }
-        //                    double minX = Int32.MaxValue, minY = Int32.MaxValue, maxX = 0, maxY = 0;
-        //                    foreach (ResultPoint point in result.ResultPoints)
-        //                    {
-        //                        minX = Math.Min(minX, point.X);
-        //                        minY = Math.Min(minY, point.Y);
-        //                        maxX = Math.Max(maxX, point.X);
-        //                        maxY = Math.Max(maxY, point.Y);
-        //                    }
-        //                    minX /= imageScale;
-        //                    minY /= imageScale;
-        //                    maxX /= imageScale;
-        //                    maxY /= imageScale;
-        //                    // make it 20% larger
-        //                    double margin = (maxX - minX) * 0.20f;
-        //                    minX += -margin + marginLeft;
-        //                    maxX += margin + marginLeft;
-        //                    minY += -margin + marginTop;
-        //                    maxY += margin + marginTop;
-        //                    splash.Location = new Point(screen.Bounds.X, screen.Bounds.Y);
-        //                    // we need a panel because a window has a minimal size
-        //                    // TODO: test on high DPI
-        //                    splash.TargetRect = new Rectangle((int)minX + screen.Bounds.X, (int)minY + screen.Bounds.Y, (int)maxX - (int)minX, (int)maxY - (int)minY);
-        //                    splash.Size = new Size(fullImage.Width, fullImage.Height);
-        //                    splash.Show();
-        //                    return;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    MessageBox.Show(I18N.GetString("No QRCode found. Try to zoom in or move it to the center of the screen."));
-        //}
+                        double imageScale = (double)screen.Bounds.Width / (double)cropRect.Width;
+                        using (Graphics g = Graphics.FromImage(target))
+                        {
+                            g.DrawImage(fullImage, new Rectangle(0, 0, target.Width, target.Height),
+                                            cropRect,
+                                            GraphicsUnit.Pixel);
+                        }
+                        var source = new BitmapLuminanceSource(target);
+                        var bitmap = new BinaryBitmap(new HybridBinarizer(source));
+                        QRCodeReader reader = new QRCodeReader();
+                        var result = reader.decode(bitmap);
+                        if (result != null)
+                        {
+                            var success = controller.AddServerBySSURL(result.Text);
+                            QRCodeSplashForm splash = new QRCodeSplashForm();
+                            if (success)
+                            {
+                                splash.FormClosed += splash_FormClosed;
+                            }
+                            else if (result.Text.ToLower().StartsWith("http://") || result.Text.ToLower().StartsWith("https://"))
+                            {
+                                _urlToOpen = result.Text;
+                                splash.FormClosed += openURLFromQRCode;
+                            }
+                            else
+                            {
+                                MessageBox.Show(I18N.GetString("Failed to decode QRCode"));
+                                return;
+                            }
+                            double minX = Int32.MaxValue, minY = Int32.MaxValue, maxX = 0, maxY = 0;
+                            foreach (ResultPoint point in result.ResultPoints)
+                            {
+                                minX = Math.Min(minX, point.X);
+                                minY = Math.Min(minY, point.Y);
+                                maxX = Math.Max(maxX, point.X);
+                                maxY = Math.Max(maxY, point.Y);
+                            }
+                            minX /= imageScale;
+                            minY /= imageScale;
+                            maxX /= imageScale;
+                            maxY /= imageScale;
+                            // make it 20% larger
+                            double margin = (maxX - minX) * 0.20f;
+                            minX += -margin + marginLeft;
+                            maxX += margin + marginLeft;
+                            minY += -margin + marginTop;
+                            maxY += margin + marginTop;
+                            splash.Location = new Point(screen.Bounds.X, screen.Bounds.Y);
+                            // we need a panel because a window has a minimal size
+                            // TODO: test on high DPI
+                            splash.TargetRect = new Rectangle((int)minX, (int)minY, (int)maxX - (int)minX, (int)maxY - (int)minY);
+                            splash.Size = new Size(fullImage.Width, fullImage.Height);
+                            splash.Show();
+                            return;
+                        }
+                    }
+                }
+            }
+            MessageBox.Show(I18N.GetString("No QRCode found. Try to zoom in or move it to the center of the screen."));
+        }
 
         private void ImportURLItem_Click(object sender, EventArgs e)
         {

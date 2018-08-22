@@ -39,7 +39,7 @@
             this.OpenLocationMenuItem = new System.Windows.Forms.MenuItem();
             this.ExitMenuItem = new System.Windows.Forms.MenuItem();
             this.ViewMenuItem = new System.Windows.Forms.MenuItem();
-            this.CleanLogsMenuItem = new System.Windows.Forms.MenuItem();
+            this.ClearLogsMenuItem = new System.Windows.Forms.MenuItem();
             this.ChangeFontMenuItem = new System.Windows.Forms.MenuItem();
             this.WrapTextMenuItem = new System.Windows.Forms.MenuItem();
             this.TopMostMenuItem = new System.Windows.Forms.MenuItem();
@@ -47,7 +47,7 @@
             this.ShowToolbarMenuItem = new System.Windows.Forms.MenuItem();
             this.TopMostCheckBox = new System.Windows.Forms.CheckBox();
             this.ChangeFontButton = new System.Windows.Forms.Button();
-            this.CleanLogsButton = new System.Windows.Forms.Button();
+            this.ClearLogsButton = new System.Windows.Forms.Button();
             this.WrapTextCheckBox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ToolbarFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -74,7 +74,7 @@
             this.LogMessageTextBox.Name = "LogMessageTextBox";
             this.LogMessageTextBox.ReadOnly = true;
             this.LogMessageTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.LogMessageTextBox.Size = new System.Drawing.Size(378, 53);
+            this.LogMessageTextBox.Size = new System.Drawing.Size(378, 74);
             this.LogMessageTextBox.TabIndex = 0;
             // 
             // MainMenu
@@ -107,7 +107,7 @@
             // 
             this.ViewMenuItem.Index = 1;
             this.ViewMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.CleanLogsMenuItem,
+            this.ClearLogsMenuItem,
             this.ChangeFontMenuItem,
             this.WrapTextMenuItem,
             this.TopMostMenuItem,
@@ -115,11 +115,11 @@
             this.ShowToolbarMenuItem});
             this.ViewMenuItem.Text = "&View";
             // 
-            // CleanLogsMenuItem
+            // ClearLogsMenuItem
             // 
-            this.CleanLogsMenuItem.Index = 0;
-            this.CleanLogsMenuItem.Text = "&Clean Logs";
-            this.CleanLogsMenuItem.Click += new System.EventHandler(this.CleanLogsMenuItem_Click);
+            this.ClearLogsMenuItem.Index = 0;
+            this.ClearLogsMenuItem.Text = "&Clear Logs";
+            this.ClearLogsMenuItem.Click += new System.EventHandler(this.ClearLogsMenuItem_Click);
             // 
             // ChangeFontMenuItem
             // 
@@ -155,9 +155,9 @@
             this.TopMostCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.TopMostCheckBox.AutoSize = true;
-            this.TopMostCheckBox.Location = new System.Drawing.Point(282, 3);
+            this.TopMostCheckBox.Location = new System.Drawing.Point(249, 3);
             this.TopMostCheckBox.Name = "TopMostCheckBox";
-            this.TopMostCheckBox.Size = new System.Drawing.Size(72, 28);
+            this.TopMostCheckBox.Size = new System.Drawing.Size(72, 23);
             this.TopMostCheckBox.TabIndex = 3;
             this.TopMostCheckBox.Text = "&Top Most";
             this.TopMostCheckBox.UseVisualStyleBackColor = true;
@@ -166,33 +166,33 @@
             // ChangeFontButton
             // 
             this.ChangeFontButton.AutoSize = true;
-            this.ChangeFontButton.Location = new System.Drawing.Point(117, 3);
+            this.ChangeFontButton.Location = new System.Drawing.Point(84, 3);
             this.ChangeFontButton.Name = "ChangeFontButton";
-            this.ChangeFontButton.Size = new System.Drawing.Size(75, 28);
+            this.ChangeFontButton.Size = new System.Drawing.Size(75, 23);
             this.ChangeFontButton.TabIndex = 2;
             this.ChangeFontButton.Text = "&Font";
             this.ChangeFontButton.UseVisualStyleBackColor = true;
             this.ChangeFontButton.Click += new System.EventHandler(this.ChangeFontButton_Click);
             // 
-            // CleanLogsButton
+            // ClearLogsButton
             // 
-            this.CleanLogsButton.AutoSize = true;
-            this.CleanLogsButton.Location = new System.Drawing.Point(3, 3);
-            this.CleanLogsButton.Name = "CleanLogsButton";
-            this.CleanLogsButton.Size = new System.Drawing.Size(108, 28);
-            this.CleanLogsButton.TabIndex = 1;
-            this.CleanLogsButton.Text = "&Clean Logs";
-            this.CleanLogsButton.UseVisualStyleBackColor = true;
-            this.CleanLogsButton.Click += new System.EventHandler(this.CleanLogsButton_Click);
+            this.ClearLogsButton.AutoSize = true;
+            this.ClearLogsButton.Location = new System.Drawing.Point(3, 3);
+            this.ClearLogsButton.Name = "ClearLogsButton";
+            this.ClearLogsButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearLogsButton.TabIndex = 1;
+            this.ClearLogsButton.Text = "&Clear Logs";
+            this.ClearLogsButton.UseVisualStyleBackColor = true;
+            this.ClearLogsButton.Click += new System.EventHandler(this.ClearLogsButton_Click);
             // 
             // WrapTextCheckBox
             // 
             this.WrapTextCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.WrapTextCheckBox.AutoSize = true;
-            this.WrapTextCheckBox.Location = new System.Drawing.Point(198, 3);
+            this.WrapTextCheckBox.Location = new System.Drawing.Point(165, 3);
             this.WrapTextCheckBox.Name = "WrapTextCheckBox";
-            this.WrapTextCheckBox.Size = new System.Drawing.Size(78, 28);
+            this.WrapTextCheckBox.Size = new System.Drawing.Size(78, 23);
             this.WrapTextCheckBox.TabIndex = 0;
             this.WrapTextCheckBox.Text = "&Wrap Text";
             this.WrapTextCheckBox.UseVisualStyleBackColor = true;
@@ -216,20 +216,20 @@
             // ToolbarFlowLayoutPanel
             // 
             this.ToolbarFlowLayoutPanel.AutoSize = true;
-            this.ToolbarFlowLayoutPanel.Controls.Add(this.CleanLogsButton);
+            this.ToolbarFlowLayoutPanel.Controls.Add(this.ClearLogsButton);
             this.ToolbarFlowLayoutPanel.Controls.Add(this.ChangeFontButton);
             this.ToolbarFlowLayoutPanel.Controls.Add(this.WrapTextCheckBox);
             this.ToolbarFlowLayoutPanel.Controls.Add(this.TopMostCheckBox);
             this.ToolbarFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolbarFlowLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.ToolbarFlowLayoutPanel.Name = "ToolbarFlowLayoutPanel";
-            this.ToolbarFlowLayoutPanel.Size = new System.Drawing.Size(378, 34);
+            this.ToolbarFlowLayoutPanel.Size = new System.Drawing.Size(378, 29);
             this.ToolbarFlowLayoutPanel.TabIndex = 2;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 43);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 38);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -240,8 +240,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.trafficChart);
-            this.splitContainer1.Size = new System.Drawing.Size(378, 115);
-            this.splitContainer1.SplitterDistance = 53;
+            this.splitContainer1.Size = new System.Drawing.Size(378, 120);
+            this.splitContainer1.SplitterDistance = 74;
             this.splitContainer1.TabIndex = 3;
             // 
             // trafficChart
@@ -271,20 +271,20 @@
             series1.BorderWidth = 2;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series1.Color = System.Drawing.Color.FromArgb(255, 128, 0);
             series1.IsXValueIndexed = true;
             series1.Legend = "Legend1";
             series1.Name = "Inbound";
             series2.BorderWidth = 2;
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            series2.Color = System.Drawing.Color.FromArgb(128, 128, 255);
             series2.IsXValueIndexed = true;
             series2.Legend = "Legend1";
             series2.Name = "Outbound";
             this.trafficChart.Series.Add(series1);
             this.trafficChart.Series.Add(series2);
-            this.trafficChart.Size = new System.Drawing.Size(378, 58);
+            this.trafficChart.Size = new System.Drawing.Size(378, 42);
             this.trafficChart.TabIndex = 0;
             this.trafficChart.Text = "chart1";
             // 
@@ -295,7 +295,7 @@
             this.ClientSize = new System.Drawing.Size(384, 161);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Menu = this.MainMenu;
-            this.MinimumSize = new System.Drawing.Size(398, 194);
+            this.MinimumSize = new System.Drawing.Size(400, 200);
             this.Name = "LogForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log Viewer";
@@ -324,12 +324,12 @@
         private System.Windows.Forms.MenuItem OpenLocationMenuItem;
         private System.Windows.Forms.MenuItem ExitMenuItem;
         private System.Windows.Forms.CheckBox WrapTextCheckBox;
-        private System.Windows.Forms.Button CleanLogsButton;
+        private System.Windows.Forms.Button ClearLogsButton;
         private System.Windows.Forms.Button ChangeFontButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox TopMostCheckBox;
         private System.Windows.Forms.MenuItem ViewMenuItem;
-        private System.Windows.Forms.MenuItem CleanLogsMenuItem;
+        private System.Windows.Forms.MenuItem ClearLogsMenuItem;
         private System.Windows.Forms.MenuItem ChangeFontMenuItem;
         private System.Windows.Forms.MenuItem WrapTextMenuItem;
         private System.Windows.Forms.MenuItem TopMostMenuItem;

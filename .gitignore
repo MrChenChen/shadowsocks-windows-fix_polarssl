@@ -1,3 +1,4 @@
+/.vs/
 Backup/
 bin/
 obj/
@@ -5,20 +6,7 @@ shadowsocks-csharp/shadowsocks-csharp.csproj.user
 TestResults
 *.suo
 
-/shadowsocks-csharp/Resources/Thumbs.db
-/shadowsocks-csharp/Thumbs.db
-/.vs/shadowsocks-csharp/v15/Browse.VC.opendb
-*.db
-*.opendb
-*.tlog
-*.tlog
-*.log
-*.filters
-*.db-shm
-*.ipch
-*.db-wal
-*.sqlite
-*.json
-*.idb
-*.pdb
-*.obj
+shadowsocks-csharp/3rd/*
+packages/*
+
+shadowsocks-csharp.sln.DotSettings.user

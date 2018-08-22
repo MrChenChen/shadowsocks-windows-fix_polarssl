@@ -19,7 +19,7 @@ namespace GetInfoFromNet
 
     public partial class NetForm : Form
     {
-        private List<Server> mListServer = null;
+        private static List<Server> mListServer = null;
 
         public TextBox ServerTxt;
 
@@ -31,22 +31,19 @@ namespace GetInfoFromNet
 
         public Button OkBtn;
 
-        static NetForm nf = null;
 
         public static void ShowForm(TextBox server, TextBox port, TextBox password, ComboBox encrypt, Button ok)
         {
-            if (nf == null)
+            NetForm nf = new NetForm()
             {
-                nf = new NetForm()
-                {
-                    ServerTxt = server,
-                    PortTxt = port,
-                    PasswordTxt = password,
-                    EncryptionSelect = encrypt,
-                    OkBtn = ok
-                };
-            }
+                ServerTxt = server,
+                PortTxt = port,
+                PasswordTxt = password,
+                EncryptionSelect = encrypt,
+                OkBtn = ok
+            };
             nf.StartPosition = FormStartPosition.CenterScreen;
+            nf.SetListToCombox();
             nf.Show();
         }
 
@@ -99,6 +96,7 @@ namespace GetInfoFromNet
                 PortTxt.Text = server.server_port.ToString();
                 PasswordTxt.Text = server.password;
                 EncryptionSelect.SelectedIndex = EncryptionSelect.Items.IndexOf(server.method);
+
                 OkBtn.PerformClick();
 
                 SaveSetting();
@@ -115,6 +113,8 @@ namespace GetInfoFromNet
 
         void SetListToCombox()
         {
+            if (mListServer == null) return;
+
             comboBoxInfos.Items.Clear();
 
             mListServer.ForEach(p => comboBoxInfos.Items.Add(p));
@@ -124,18 +124,18 @@ namespace GetInfoFromNet
 
         List<Server> AquireInfo()
         {
-            WebClient http = new WebClient()
+            var http = new WebClientPro(10000)
             {
                 Encoding = Encoding.UTF8
             };
 
             var html = http.DownloadString(textBoxShadowURL.Text);
 
-            var key1 = html.Split(new String[] { "<!-- Portfolio Section -->" }, StringSplitOptions.None)[1];
+            var key1 = html.Split(new string[] { "<!-- Portfolio Section -->" }, StringSplitOptions.None)[1];
 
-            var mainkey = key1.Split(new String[] { "<!-- Team Section -->" }, StringSplitOptions.None)[0];
+            var mainkey = key1.Split(new string[] { "<!-- Team Section -->" }, StringSplitOptions.None)[0];
 
-            var len = mainkey.Split(new String[] { "IP Address:" }, StringSplitOptions.None).Length - 1;
+            var len = mainkey.Split(new string[] { "IP Address:" }, StringSplitOptions.None).Length - 1;
 
             if (len < 0)
             {
@@ -327,6 +327,32 @@ namespace GetInfoFromNet
                "password : " + password + "\r\n" +
                "method : " + method + "\r\n"
                 ;
+        }
+    }
+
+    public class WebClientPro : WebClient
+    {
+        /// <summary>
+        /// 过期时间
+        /// </summary>
+        public int Timeout { get; set; }
+
+        public WebClientPro(int timeout = 30000)
+        {//默认30秒
+            Timeout = timeout;
+        }
+
+        /// <summary>
+        /// 重写GetWebRequest,添加WebRequest对象超时时间
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        protected override WebRequest GetWebRequest(Uri address)
+        {//WebClient里上传下载的方法很多，但最终应该都是调用了这个方法
+            HttpWebRequest request = (HttpWebRequest)base.GetWebRequest(address);
+            request.Timeout = Timeout;
+            request.ReadWriteTimeout = Timeout;
+            return request;
         }
     }
 
