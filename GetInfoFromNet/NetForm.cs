@@ -11,8 +11,10 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+#if USE_QRCODE
 using ThoughtWorks.QRCode.Codec;
 using ThoughtWorks.QRCode.Codec.Data;
+#endif
 
 namespace GetInfoFromNet
 {
@@ -256,6 +258,9 @@ namespace GetInfoFromNet
 
             try
             {
+
+#if USE_QRCODE
+
                 QRCodeDecoder decoder = new QRCodeDecoder();
                 var pictureBox1 = new PictureBox();
                 pictureBox1.Load(url);
@@ -271,6 +276,8 @@ namespace GetInfoFromNet
                 server.server = key1[1].Split(':')[0];
                 server.password = key1[1].Split(':')[1];
                 server.server_port = 443;
+
+#endif
             }
             catch (Exception ex)
             {
